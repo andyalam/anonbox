@@ -10,6 +10,7 @@ const userSchema  = new mongoose.Schema({
   },
   name: {
     type: String,
+    unique: true,
     required: true
   },
   hash: String,
@@ -19,11 +20,11 @@ const userSchema  = new mongoose.Schema({
 
 userSchema.methods.setPassword = function(password) {
   this.salt = crypto.randomBytes(16).toString('hex');
-  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  this.hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex');
 };
 
 userSchema.methods.validPassword = function(password) {
-  const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64).toString('hex');
+  const hash = crypto.pbkdf2Sync(password, this.salt, 1000, 64, 'sha1').toString('hex');
   return this.hash === hash;
 };
 
