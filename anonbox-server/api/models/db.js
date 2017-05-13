@@ -45,5 +45,4 @@ process.on('SIGTERM', function() {
   });
 });
 
-// require any schema files below
-// eg: require('./users');
+require('./users');
