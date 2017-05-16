@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 
 import { NavComponent } from './nav/nav.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
 	declarations: [
-		NavComponent
+		NavComponent,
+		HomeComponent
 	],
 	imports: [],
 	exports: [
