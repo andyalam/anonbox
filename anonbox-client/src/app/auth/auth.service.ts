@@ -1,7 +1,9 @@
 import { Http } from '@angular/http';
+import { Injectable } from '@angular/core';
 
 const API = 'localhost:3000/api';
 
+@Injectable()
 export class AuthService {
 	token: string;
 
