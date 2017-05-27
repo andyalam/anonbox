@@ -1,0 +1,19 @@
+.form-container {
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.btn {
+	width: 100%;
+}
+
+.title {
+	text-align: center;
+	margin-bottom: 30px;
+}
+
+/* error states */
+input.ng-invalid.ng-touched,
+textarea.ng-invalid.ng-touched {
+	border: 1px solid red;
+}
