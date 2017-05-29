@@ -8,6 +8,11 @@ import { CommonModule } from '@angular/common';
 	exports: [
 		CommonModule
 	]
-	/*NEVER provide services on shared modules*/
+	/*
+		NEVER provide services on shared modules
+		User this for to add common components.
+		Make sure the common component is declared in both the 'declarations'
+		and 'exports' array.
+	*/
 })
 export class SharedModule {}

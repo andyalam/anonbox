@@ -10,11 +10,11 @@
     </div>
     <div class="collapse navbar-collapse navHeaderCollapse">
       <ul class="nav navbar-nav navbar-right">
-        <ng-template [ngIf]="!authService.isAuthenticated()">
+        <ng-template [ngIf]="!isLoggedIn()">
           <li routerLinkActive="active"><a routerLink="/register">Register</a></li>
           <li routerLinkActive="active"><a routerLink="/login">Login</a></li>
         </ng-template>
-        <li *ngIf="authService.isAuthenticated()"><a (click)="onLogout()">Logout</a></li>
+        <li *ngIf="isLoggedIn()"><a (click)="onLogout()">Logout</a></li>
       </ul>
     </div>
   </div>

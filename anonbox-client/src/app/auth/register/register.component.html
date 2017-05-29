@@ -42,6 +42,9 @@
     <button
       type="submit"
       class="btn btn-default"
-      [disabled]="!registerForm.valid">Submit</button>
+      [disabled]="!registerForm.valid || error || loading">
+      <span *ngIf="!loading">Submit</span>
+      <span *ngIf="loading">Loader here....</span>
+    </button>
   </form>
 </div>

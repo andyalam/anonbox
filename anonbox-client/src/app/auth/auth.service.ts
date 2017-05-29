@@ -1,13 +1,14 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 
-const API = 'localhost:3000/api';
+import { SessionStoreService } from '../shared/sessionStore.service';
+
+const API = 'http://localhost:3000/api';
 
 @Injectable()
 export class AuthService {
-	token: string;
-
-	constructor(private http: Http) {}
+	constructor(private http: Http,
+							private sessionStore: SessionStoreService) {}
 
 	register(email: string, name: string, password: string) {
 		const endpoint:string = API + '/register';
@@ -24,23 +25,41 @@ export class AuthService {
 	}
 
 	logout() {
-		this.token = null;
+		this.sessionStore.clearStorage(
+			this.sessionStore.TOKEN
+		);
 	}
 
 	getToken() {
-		return this.token;
+		return this.sessionStore.getStorage(
+			this.sessionStore.TOKEN
+		);
+	}
+
+	setToken(token) {
+		this.sessionStore.setStorage(
+			this.sessionStore.TOKEN,
+			token
+		);
 	}
 
 	getHeader() {
+		const token = this.sessionStore.getStorage(
+			this.sessionStore.TOKEN
+		);
+
 		const header = {
-			Authorization: 'Bearer ' + this.token
+			Authorization: 'Bearer ' + token
 		};
 
 		return header;
 	}
 
 	isAuthenticated() {
-		return this.token != null;
+		const token = this.sessionStore.getStorage(
+			this.sessionStore.TOKEN
+		);
+		return token != null;
 	}
 
 }

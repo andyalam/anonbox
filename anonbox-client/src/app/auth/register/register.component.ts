@@ -12,6 +12,8 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  loading: boolean = false;
+  error: string = '';
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -36,7 +38,20 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.registerForm);
+    const { email, username,  password1 } = this.registerForm.value;
+
+    this.loading = true;
+    this.authService.register(email, username, password1)
+      .subscribe(
+        (res) => {
+          console.log(res.json());
+          const { token } = res.json();
+          this.authService.setToken(token);
+          this.router.navigate(['/']);
+        },
+        (err) => this.error = err,
+        () => this.loading = false
+      );
   }
 
 }

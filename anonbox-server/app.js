@@ -29,6 +29,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, OPTIONS");
+  next();
+});
+
 app.use('/api', api);
 // Anything that doesn't hit this '/api' or error will return the angular client
 // Angular will handle the rest from here
