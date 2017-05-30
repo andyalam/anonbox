@@ -42,9 +42,15 @@
     <button
       type="submit"
       class="btn btn-default"
-      [disabled]="!registerForm.valid || error || loading">
+      [disabled]="!registerForm.valid || loading">
       <span *ngIf="!loading">Submit</span>
       <span *ngIf="loading">Loader here....</span>
     </button>
+    <div *ngIf="error" class="error-text">
+      {{ error }}
+    </div>
+    <div class="help-text">
+      Already have an account? <a routerLink="/login">Login Here!</a>
+    </div>
   </form>
 </div>

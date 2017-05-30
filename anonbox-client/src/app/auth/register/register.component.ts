@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../auth.service';
 import { matchOtherValidator } from '../../shared/match-other-validator';
@@ -10,7 +11,8 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
+  registeringSubscription: Subscription;
   registerForm: FormGroup;
   loading: boolean = false;
   error: string = '';
@@ -20,6 +22,10 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.initForm()
+  }
+
+  ngOnDestroy() {
+    this.registeringSubscription && this.registeringSubscription.unsubscribe();
   }
 
   initForm() {
@@ -41,7 +47,7 @@ export class RegisterComponent implements OnInit {
     const { email, username,  password1 } = this.registerForm.value;
 
     this.loading = true;
-    this.authService.register(email, username, password1)
+    this.registeringSubscription = this.authService.register(email, username, password1)
       .subscribe(
         (res) => {
           console.log(res.json());
