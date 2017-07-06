@@ -9,7 +9,7 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['../auth.css']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   registeringSubscription: Subscription;

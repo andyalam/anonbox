@@ -18,6 +18,12 @@
 	font-size: 12px;
 }
 
+.error-text {
+	text-align: center;
+	padding: 15px;
+	margin-top: 15px;
+}
+
 /* error states */
 input.ng-invalid.ng-touched,
 textarea.ng-invalid.ng-touched {
