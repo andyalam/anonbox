@@ -46,8 +46,10 @@ export class LoginComponent implements OnInit {
           this.authService.setToken(token);
           this.router.navigate(['/']);
         },
-        (err) => this.error = err,
-        () => this.loading = false
+        (err) => {
+          this.loading = false;
+          this.error = err;
+        }
       );
   }
 

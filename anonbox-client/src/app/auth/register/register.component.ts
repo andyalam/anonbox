@@ -55,8 +55,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.authService.setToken(token);
           this.router.navigate(['/']);
         },
-        (err) => this.error = err,
-        () => this.loading = false
+        (err) => {
+          this.error = err;
+          this.loading = false;
+        }
       );
   }
 
