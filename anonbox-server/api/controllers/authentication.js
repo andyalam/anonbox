@@ -2,12 +2,9 @@ const passport = require('passport');
 const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
-const sendJsonResponse = function(res, status, content) {
-  res.status(status);
-  res.json(content);
-};
+const { sendJsonResponse } = require('../handlers/handlers');
 
-module.exports.register = function(req, res) {
+module.exports.register = async (req, res) => {
   if(!req.body.name || !req.body.email || !req.body.password) {
     sendJsonResponse(res, 400, {
       "message": "All fields required."
@@ -20,20 +17,14 @@ module.exports.register = function(req, res) {
   user.email = req.body.email;
   user.setPassword(req.body.password);
 
-  user.save(function(err) {
-    if (err) {
-      sendJsonResponse(res, 404, err);
-    } else {
-      token = user.generateJwt();
-      sendJsonResponse(res, 200, {
-        "token": token
-      });
-    }
-  });
+  await user.save();
+
+  const token = user.generateJwt();
+  sendJsonResponse(res, 200, { token });
 };
 
 
-module.exports.login = function(req, res) {
+module.exports.login = (req, res) => {
   if(!req.body.email || !req.body.password) {
     sendJsonResponse(res, 400, {
       "message": "All fields required."

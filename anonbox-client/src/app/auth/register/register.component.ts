@@ -56,7 +56,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.router.navigate(['/']);
         },
         (err) => {
-          this.error = err;
+          const { errmsg } = err.json();
+          this.error = errmsg ? errmsg : 'Authorization Failed';
           this.loading = false;
         }
       );
