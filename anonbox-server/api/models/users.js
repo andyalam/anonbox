@@ -1,17 +1,21 @@
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const validator = require('validator');
 
 const userSchema  = new mongoose.Schema({
   email: {
     type: String,
     unique: true,
-    required: true
+    lowercase: true,
+    trim: true,
+    validate: [validator.isEmail, 'Invalid Email Address'],
+    required: 'Please supply an email'
   },
   name: {
     type: String,
     unique: true,
-    required: true
+    required: 'Please supply an email address'
   },
   hash: String,
   salt: String
