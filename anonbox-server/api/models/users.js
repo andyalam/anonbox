@@ -15,7 +15,7 @@ const userSchema  = new mongoose.Schema({
   name: {
     type: String,
     unique: true,
-    required: 'Please supply an email address'
+    required: 'Please supply a username'
   },
   hash: String,
   salt: String

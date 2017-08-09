@@ -7,11 +7,15 @@ const auth = jwt({
   userProperty: 'payload'
 });
 const ctrlAuth = require('../controllers/authentication');
+const ctrlBox = require('../controllers/boxes');
 const { catchErrors } = require('../handlers/handlers');
 
 // Authentication
 router.post('/register', catchErrors(ctrlAuth.register));
 router.post('/login', ctrlAuth.login);
+
+// Boxes
+router.get('/profile/:username', catchErrors(ctrlBox.getProfile));
 
 
 module.exports = router;
