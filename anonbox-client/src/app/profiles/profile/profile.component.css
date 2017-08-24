@@ -2,3 +2,9 @@
 	text-align: center;
 	margin: 25px auto;
 }
+
+.error-text {
+	text-align: center;
+	padding: 15px;
+	margin-top: 15px;
+}

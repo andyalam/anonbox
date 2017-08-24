@@ -1,4 +1,7 @@
 <div class="profile">
+  <div *ngIf="error" class="error-text bg-danger">
+    {{ error }}
+  </div>
   <div class="loader" *ngIf="isProfileLoading">
     <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
   </div>

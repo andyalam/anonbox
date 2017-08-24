@@ -12,7 +12,9 @@ import { AuthService } from '../../auth/auth.service';
 export class ProfileComponent implements OnInit {
 
   profile;
+
   isProfileLoading: boolean;
+  error: string = '';
 
   constructor(private profilesService: ProfilesService,
               private authService: AuthService,
@@ -24,15 +26,18 @@ export class ProfileComponent implements OnInit {
 
   loadProfile() {
     const profileName = this.route.snapshot.params.id;
-
     this.isProfileLoading = true;
+
     this.profilesService.getProfile(profileName)
       .subscribe(
         res => {
+          this.isProfileLoading = false;
           console.log(res.json());
         },
         err => {
-          console.log(err);
+          const { errmsg } = err.json();
+          this.isProfileLoading = false;
+          this.error = errmsg ? errmsg : 'Profile Load Failed';
         }
       );
   }
