@@ -14,6 +14,13 @@ export class NavComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Avoid allowing the template to access our service directly
+  getUsername() {
+    const { username } = this.authService.getUser();
+    console.log(username);
+    return username;
+  }
+
   onLogout() {
     this.authService.logout();
   }

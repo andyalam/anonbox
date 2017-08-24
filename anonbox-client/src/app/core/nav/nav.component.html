@@ -14,7 +14,10 @@
           <li routerLinkActive="active"><a routerLink="/register">Register</a></li>
           <li routerLinkActive="active"><a routerLink="/login">Login</a></li>
         </ng-template>
-        <li *ngIf="isLoggedIn()"><a (click)="onLogout()">Logout</a></li>
+        <ng-template [ngIf]="isLoggedIn()">
+          <li routerLinkActive="active"><a [routerLink]="['/profile', getUsername()]">Profile</a></li>
+          <li><a (click)="onLogout()">Logout</a></li>
+        </ng-template>
       </ul>
     </div>
   </div>

@@ -42,8 +42,9 @@ export class LoginComponent implements OnInit {
       .subscribe(
         (res) => {
           console.log(res.json());
-          const { token } = res.json();
+          const { token, user } = res.json();
           this.authService.setToken(token);
+          this.authService.setUser(user);
           this.router.navigate(['/']);
         },
         (err) => {

@@ -4,6 +4,7 @@
 export class SessionStoreService {
 
 	TOKEN: string = 'login';
+	USER: string = 'user';
 
 	setStorage(key: string, value:string, stringify: boolean = true) {
 		if (stringify) {

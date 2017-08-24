@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { SessionStoreService } from '../shared/sessionStore.service';
 
-const API = 'http://localhost:3000/api';
+import { API } from '../shared/config';
 
 @Injectable()
 export class AuthService {
@@ -40,6 +40,19 @@ export class AuthService {
 		this.sessionStore.setStorage(
 			this.sessionStore.TOKEN,
 			token
+		);
+	}
+
+	getUser() {
+		return this.sessionStore.getStorage(
+			this.sessionStore.USER
+		);
+	}
+
+	setUser(user) {
+		this.sessionStore.setStorage(
+			this.sessionStore.USER,
+			user
 		);
 	}
 

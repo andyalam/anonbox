@@ -20,7 +20,14 @@ module.exports.register = async (req, res) => {
   await user.save();
 
   const token = user.generateJwt();
-  sendJsonResponse(res, 200, { token });
+  const data = {
+    token,
+    user: {
+      username: user.username,
+      email: user.email
+    }
+  };
+  sendJsonResponse(res, 200, data);
 };
 
 
@@ -44,9 +51,14 @@ module.exports.login = (req, res) => {
 
     if (user) {
       token = user.generateJwt();
-      sendJsonResponse(res, 200, {
-        "token": token
-      });
+      const data = {
+        token,
+        user: {
+          username: user.username,
+          email: user.email
+        }
+      };
+      sendJsonResponse(res, 200, data);
     } else {
       sendJsonResponse(res, 401, info);
     }
