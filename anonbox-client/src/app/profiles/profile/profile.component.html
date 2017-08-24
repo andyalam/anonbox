@@ -1,3 +1,8 @@
-<p>
-  profile works!
-</p>
+<div class="profile">
+  <div class="loader" *ngIf="isProfileLoading">
+    <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+  </div>
+  <div class="profile__content" *ngIf="!isProfileLoading">
+    {{ profile }}
+  </div>
+</div>

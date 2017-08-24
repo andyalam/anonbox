@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 
 import { API } from '../shared/config';
 
+@Injectable()
 export class ProfilesService {
 	constructor(private http: Http) {}
 
 	getProfile(profileID) {
 		const endpoint = API + `/profile/${profileID}`;
-		
+
 		return this.http.get(endpoint);
 	}
 }
