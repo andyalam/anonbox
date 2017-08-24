@@ -5,7 +5,7 @@ const User = mongoose.model('User');
 const { sendJsonResponse } = require('../handlers/handlers');
 
 module.exports.register = async (req, res) => {
-  if(!req.body.name || !req.body.email || !req.body.password) {
+  if(!req.body.username || !req.body.email || !req.body.password) {
     sendJsonResponse(res, 400, {
       "message": "All fields required."
     });
@@ -13,7 +13,7 @@ module.exports.register = async (req, res) => {
   }
 
   const user = new User();
-  user.name = req.body.name;
+  user.username = req.body.username;
   user.email = req.body.email;
   user.setPassword(req.body.password);
 

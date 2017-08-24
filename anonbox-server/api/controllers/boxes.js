@@ -9,6 +9,6 @@ module.exports.getProfile = async (req, res) => {
 	console.log(req.params);
 	const { username } = req.params;
 	const box = await Box.findOne({ username });
-	const user = await User.findOne({ name: username });
+	const user = await User.findOne({ username });
 	sendJsonResponse(res, 200, { box, user });
 };

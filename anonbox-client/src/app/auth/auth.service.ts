@@ -10,9 +10,9 @@ export class AuthService {
 	constructor(private http: Http,
 							private sessionStore: SessionStoreService) {}
 
-	register(email: string, name: string, password: string) {
+	register(email: string, username: string, password: string) {
 		const endpoint:string = API + '/register';
-		const body = { email, name, password };
+		const body = { email, username, password };
 
 		return this.http.post(endpoint, body);
 	}
