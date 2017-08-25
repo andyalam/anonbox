@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const validator = require('validator');
+const Box = mongoose.model('Box');
+const { BOX_OPTIONS } = require('./boxes');
 
 const userSchema  = new mongoose.Schema({
   email: {
@@ -9,7 +11,10 @@ const userSchema  = new mongoose.Schema({
     unique: true,
     lowercase: true,
     trim: true,
-    validate: [validator.isEmail, 'Invalid Email Address'],
+    validate: [{
+      validator: value => validator.isEmail(value),
+      msg: 'Invalid Email Address'
+    }],
     required: 'Please supply an email'
   },
   username: {
@@ -23,6 +28,28 @@ const userSchema  = new mongoose.Schema({
   salt: String
 });
 
+// Ensures the user has a general box
+userSchema.pre('save', async function(next) {
+  const { username } = this;
+  console.log(BOX_OPTIONS);
+  const preexistingBox = await Box.findOne({
+    boxType: BOX_OPTIONS['general'],
+    username
+  });
+
+  if (preexistingBox) {
+    return;
+  }
+
+  const box = new Box({
+    username,
+    boxType: BOX_OPTIONS['general'],
+    description: 'General box'
+  });
+  await box.save();
+
+  return next();
+});
 
 userSchema.methods.setPassword = function(password) {
   this.salt = crypto.randomBytes(16).toString('hex');
