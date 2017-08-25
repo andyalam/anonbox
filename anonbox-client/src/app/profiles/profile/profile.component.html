@@ -6,6 +6,10 @@
     <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
   </div>
   <div class="profile__content" *ngIf="!isProfileLoading">
-    {{ profile }}
+    {{ profile.username }}
+    <div *ngIf="profile && profile.username">
+      <app-message-box>
+      </app-message-box>
+    </div>
   </div>
 </div>

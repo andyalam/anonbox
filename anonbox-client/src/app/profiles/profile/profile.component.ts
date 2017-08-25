@@ -33,6 +33,10 @@ export class ProfileComponent implements OnInit {
         res => {
           this.isProfileLoading = false;
           console.log(res.json());
+          const { user } = res.json();
+          const { username } = user;
+          this.profile = { ...this.profile, username  };
+          console.log(this.profile);
         },
         err => {
           const { errmsg } = err.json();

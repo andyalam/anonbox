@@ -1,5 +1,8 @@
 /*
 	Service for communicating with sessionStorage.
+
+	It's main purpose is to store keys in an easy identifiable place
+	and to avoid 'magic' strings being used across the app.
 */
 export class SessionStoreService {
 

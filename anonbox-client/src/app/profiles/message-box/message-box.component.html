@@ -1,0 +1,7 @@
+<div class="message-box">
+  <form [formGroup]="messageForm" (ngSubmit)="onSubmitMessageForm()">
+    <textarea rows="5" name="message" formControlName="message">
+    </textarea>
+    <input type="submit" class="btn btn-default" />
+  </form>
+</div>

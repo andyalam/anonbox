@@ -11,13 +11,13 @@ export class AuthService {
 							private sessionStore: SessionStoreService) {}
 
 	register(email: string, username: string, password: string) {
-		const endpoint:string = API + '/register';
+		const endpoint: string = API + '/register';
 		const body = { email, username, password };
 
 		return this.http.post(endpoint, body);
 	}
 
-	login(email:string, password: string) {
+	login(email: string, password: string) {
 		const endpoint: string = API + '/login';
 		const body = { email, password };
 
