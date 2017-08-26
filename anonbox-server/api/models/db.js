@@ -46,5 +46,5 @@ process.on('SIGTERM', function() {
   });
 });
 
-require('./users');
 require('./boxes');
+require('./users');

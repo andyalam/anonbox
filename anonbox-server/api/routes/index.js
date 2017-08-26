@@ -16,6 +16,6 @@ router.post('/login', ctrlAuth.login);
 
 // Boxes
 router.get('/profile/:username', catchErrors(ctrlBox.getProfile));
-
+router.post('/profile/:username', catchErrors(ctrlBox.postMessage));
 
 module.exports = router;
