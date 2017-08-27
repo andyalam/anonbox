@@ -1,0 +1,8 @@
+<div class="message-view-box" *ngIf="box">
+  <h4>{{ box.boxType }}</h4>
+  <div class="messages__container" *ngIf="box.messages && box.messages.length">
+    <div class="message" *ngFor="let message of box.messages">
+      {{ message.text }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+.message {
+	border: 1px solid #ccc;
+	padding: 30px 15px;
+}
+.message:not(:first-of-type) {
+	border-top: none;
+}

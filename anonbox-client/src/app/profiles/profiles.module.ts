@@ -7,12 +7,14 @@ import { ProfilesRoutingModule } from './profiles-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { ProfilesService } from './profiles.service';
 import { MessageBoxComponent } from './message-box/message-box.component';
+import { MessageViewBoxComponent } from './message-view-box/message-view-box.component';
 
 @NgModule({
 	declarations: [
 		ProfileComponent,
 		ProfileSettingsComponent,
-		MessageBoxComponent
+		MessageBoxComponent,
+		MessageViewBoxComponent
 	],
 	imports: [
 		ReactiveFormsModule,

@@ -28,6 +28,10 @@
       <i class="fa fa-cube" aria-hidden="true"></i>
       {{ box.boxType }}
     </div>
+    <div class="box-selected-holder">
+      <app-message-view-box [box]="selectedBox">
+      </app-message-view-box>
+    </div>
   </div>
 
 </div>

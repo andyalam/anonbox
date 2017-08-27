@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ProfilesService } from '../profiles.service';
 import { AuthService } from '../../auth/auth.service';
@@ -17,9 +17,12 @@ export class ProfileComponent implements OnInit {
   isProfileLoading: boolean;
   error: string = '';
 
+  selectedBox;
+
   constructor(private profilesService: ProfilesService,
               private authService: AuthService,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private router: Router) { }
 
   ngOnInit() {
     this.loadProfile();
@@ -60,8 +63,8 @@ export class ProfileComponent implements OnInit {
   }
 
   onClickBox(box) {
-    console.log(box);
-    
+    this.selectedBox = box;
+    console.log('new box selected', this.selectedBox);
   }
 
 }
