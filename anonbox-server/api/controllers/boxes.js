@@ -1,5 +1,5 @@
 const { sendJsonResponse } = require('../handlers/handlers');
-const { BOX_OPTIONS } = require('./boxes');
+const { BOX_OPTIONS } = require('../models/boxes');
 const mongoose = require('mongoose');
 const Box = mongoose.model('Box');
 const User = mongoose.model('User');
@@ -23,10 +23,26 @@ module.exports.postMessage = async (req, res) => {
 		});
 	}
 
-	const box = await Box.findOne({
-		username
-	});
-	console.log(username, message, box);
+	if (message.length < 10) {
+		sendJsonResponse(res, 400, {
+			error: 'Your message should contains a minimum of 10 characters!'
+		});
+	}
 
+	// TODO: assume general boxtype, pass in box type via post body
+	// later once MVP completed
+	const box = await Box.findOne({
+		username,
+		boxType: BOX_OPTIONS['general']
+	});
+
+	box.messages.push({
+		text: message
+	});
+
+	await box.save();
+
+	// TODO:
+	console.log(username, message, box);
 	sendJsonResponse(res, 200, {});
 };
