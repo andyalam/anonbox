@@ -8,3 +8,12 @@
 	padding: 15px;
 	margin-top: 15px;
 }
+
+.box {
+	border: 1px solid #ccc;
+	padding: 15px;
+	margin: 15px auto;
+}
+.box:hover {
+	cursor: pointer;
+}

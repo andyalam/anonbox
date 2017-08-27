@@ -12,6 +12,7 @@ import { AuthService } from '../../auth/auth.service';
 export class ProfileComponent implements OnInit {
 
   profile;
+  isProfileOwner;
 
   isProfileLoading: boolean;
   error: string = '';
@@ -33,10 +34,22 @@ export class ProfileComponent implements OnInit {
         res => {
           this.isProfileLoading = false;
           console.log(res.json());
-          const { user } = res.json();
+          const { user, boxes } = res.json();
           const { username } = user;
-          this.profile = { ...this.profile, username  };
+          this.profile = { ...this.profile, username, boxes  };
           console.log(this.profile);
+
+          // check to see if current user is logged in user,
+          // if so, set appropriate flag(s)
+          const loggedInUser = this.authService.getUser();
+          if (loggedInUser) {
+            console.log('logged in user: ', loggedInUser);
+            if (loggedInUser.username == username) {
+              this.isProfileOwner = true;
+              console.log('is owner');
+            }
+          }
+
         },
         err => {
           const { errmsg } = err.json();
@@ -44,6 +57,11 @@ export class ProfileComponent implements OnInit {
           this.error = errmsg ? errmsg : 'Profile Load Failed';
         }
       );
+  }
+
+  onClickBox(box) {
+    console.log(box);
+    
   }
 
 }

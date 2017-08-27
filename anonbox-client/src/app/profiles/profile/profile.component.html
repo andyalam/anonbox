@@ -1,15 +1,33 @@
 <div class="profile">
-  <div *ngIf="error" class="error-text bg-danger">
-    {{ error }}
-  </div>
-  <div class="loader" *ngIf="isProfileLoading">
-    <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
-  </div>
-  <div class="profile__content" *ngIf="!isProfileLoading">
-    {{ profile.username }}
-    <div *ngIf="profile && profile.username">
-      <app-message-box [receiver]="profile.username">
-      </app-message-box>
+
+  <!-- User doesn't own profile -->
+  <div *ngIf="!isProfileOwner">
+    <div *ngIf="error" class="error-text bg-danger">
+      {{ error }}
+    </div>
+    <div class="loader" *ngIf="isProfileLoading">
+      <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+    </div>
+    <div class="profile__content" *ngIf="!isProfileLoading">
+      {{ profile.username }}
+      <div *ngIf="profile && profile.username">
+        <app-message-box [receiver]="profile.username">
+        </app-message-box>
+      </div>
     </div>
   </div>
+
+  <!-- User owns profile -->
+  <div *ngIf="isProfileOwner">
+    <h2>Welcome to your profile, {{ profile.username }}!</h2>
+    <h4>Select a box below to view the messages within it.</h4>
+    <div
+      *ngFor="let box of profile.boxes"
+      class="box"
+      (click)="onClickBox(box)">
+      <i class="fa fa-cube" aria-hidden="true"></i>
+      {{ box.boxType }}
+    </div>
+  </div>
+
 </div>
