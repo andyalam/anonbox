@@ -19,4 +19,10 @@ export class ProfilesService {
 
 		return this.http.post(endpoint, data);
 	}
+
+	deleteBox(box) {
+		const endpoint = API + `/box/${box.boxType}`;
+
+		return this.http.delete(endpoint);
+	}
 }

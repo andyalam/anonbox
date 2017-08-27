@@ -28,6 +28,10 @@ export class AuthService {
 		this.sessionStore.clearStorage(
 			this.sessionStore.TOKEN
 		);
+
+		this.sessionStore.clearStorage(
+			this.sessionStore.USER
+		);
 	}
 
 	getToken() {

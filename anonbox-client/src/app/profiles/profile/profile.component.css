@@ -10,10 +10,20 @@
 }
 
 .box {
+	position: relative;
 	border: 1px solid #ccc;
 	padding: 15px;
 	margin: 15px auto;
 }
 .box:hover {
 	cursor: pointer;
+}
+.box .box__trash {
+	position: absolute;
+	top: 8px;
+	right: 5px;
+}
+
+.addNew__container {
+	text-align: right;
 }

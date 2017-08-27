@@ -12,12 +12,11 @@ import { AuthService } from '../../auth/auth.service';
 export class ProfileComponent implements OnInit {
 
   profile;
-  isProfileOwner;
-
   isProfileLoading: boolean;
   error: string = '';
 
   selectedBox;
+  isAddFormShown: boolean = false;
 
   constructor(private profilesService: ProfilesService,
               private authService: AuthService,
@@ -48,7 +47,6 @@ export class ProfileComponent implements OnInit {
           if (loggedInUser) {
             console.log('logged in user: ', loggedInUser);
             if (loggedInUser.username == username) {
-              this.isProfileOwner = true;
               console.log('is owner');
             }
           }
@@ -65,6 +63,33 @@ export class ProfileComponent implements OnInit {
   onClickBox(box) {
     this.selectedBox = box;
     console.log('new box selected', this.selectedBox);
+  }
+
+  onClickDeleteBox(box) {
+    this.profilesService.deleteBox(box)
+      .subscribe(
+        res => console.log(res),
+        err => console.log(err)
+      );
+  }
+
+  isProfileOwner(): boolean {
+    if (!this.profile || !this.authService.getUser()) {
+      return false;
+    }
+
+    const { username } = this.authService.getUser();
+    const profileUsername = this.profile.username;
+
+    if (!username || !profileUsername) {
+      return false;
+    }
+
+    return username == profileUsername;
+  }
+
+  onClickAddNewBox() {
+    this.isAddFormShown = !this.isAddFormShown;
   }
 
 }

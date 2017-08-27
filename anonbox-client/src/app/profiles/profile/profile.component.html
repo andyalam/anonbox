@@ -1,7 +1,7 @@
 <div class="profile">
 
   <!-- User doesn't own profile -->
-  <div *ngIf="!isProfileOwner">
+  <div *ngIf="!isProfileOwner()">
     <div *ngIf="error" class="error-text bg-danger">
       {{ error }}
     </div>
@@ -18,15 +18,32 @@
   </div>
 
   <!-- User owns profile -->
-  <div *ngIf="isProfileOwner">
+  <div *ngIf="isProfileOwner()">
     <h2>Welcome to your profile, {{ profile.username }}!</h2>
-    <h4>Select a box below to view the messages within it.</h4>
+    <h5>
+      Select a box below to view the messages within it, or create a new one.
+    </h5>
+    <div class="addNew__container">
+      <button class="btn btn-default add" (click)="onClickAddNewBox()">
+        Add
+      </button>
+      <div class="addNew__form" *ngIf="isAddFormShown">
+        test123
+      </div>
+    </div>
     <div
       *ngFor="let box of profile.boxes"
       class="box"
       (click)="onClickBox(box)">
-      <i class="fa fa-cube" aria-hidden="true"></i>
-      {{ box.boxType }}
+      <div class="box__description">
+        <i class="fa fa-cube" aria-hidden="true"></i>
+        {{ box.boxType }}
+      </div>
+      <div class="box__trash" *ngIf="box.boxType !== 'general'">
+        <button class="btn btn-danger" (click)="onClickDeleteBox(box)">
+          Delete
+        </button>
+      </div>
     </div>
     <div class="box-selected-holder">
       <app-message-view-box [box]="selectedBox">
