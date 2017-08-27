@@ -7,9 +7,16 @@ import { API } from '../shared/config';
 export class ProfilesService {
 	constructor(private http: Http) {}
 
-	getProfile(profileID) {
-		const endpoint = API + `/profile/${profileID}`;
+	getProfile(username) {
+		const endpoint = API + `/profile/${username}`;
 
 		return this.http.get(endpoint);
+	}
+
+	postMessage(username, message) {
+		const endpoint = API + `/profile/${username}`;
+		const data = { message };
+
+		return this.http.post(endpoint, data);
 	}
 }

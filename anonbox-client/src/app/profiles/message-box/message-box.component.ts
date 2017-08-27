@@ -14,15 +14,19 @@ export class MessageBoxComponent implements OnInit {
   @Input() receiver;
   @Input() sender;
 
-  error: string;
+  isFormShown: boolean = true;
+  isFormLoading: boolean;
+  isSuccessShown: boolean;
+  errorMessage: string;
 
   constructor(private profilesService: ProfilesService) {
     this.initMessageForm();
   }
 
   ngOnInit() {
-    if (!this.receiver || !this.sender) {
-      this.error = 'Message Box Failed to Initialize!';
+    if (!this.receiver) {
+      this.errorMessage = 'Message Box Failed to Initialize!';
+      this.isFormShown = false;
     }
   }
 
@@ -33,7 +37,28 @@ export class MessageBoxComponent implements OnInit {
   }
 
   onSubmitMessageForm() {
-    // TODO handle form submission here
+    this.isFormLoading = true;
+
+    this.profilesService
+      .postMessage(this.receiver, this.messageForm.value.message)
+      .subscribe(
+        this.handleMessageSuccess.bind(this),
+        this.handleMessageError.bind(this)
+      );
+  }
+
+  handleMessageSuccess(res) {
+    this.isFormLoading = false;
+    this.isSuccessShown = true;
+    console.log(res);
+  }
+
+  handleMessageError(errRes) {
+    this.isFormLoading = false;
+
+    const { error } = errRes.json();
+    this.errorMessage = error;
+    setTimeout(() => this.errorMessage = null, 4000);
   }
 
 }

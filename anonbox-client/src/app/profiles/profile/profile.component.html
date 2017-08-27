@@ -8,7 +8,7 @@
   <div class="profile__content" *ngIf="!isProfileLoading">
     {{ profile.username }}
     <div *ngIf="profile && profile.username">
-      <app-message-box>
+      <app-message-box [receiver]="profile.username">
       </app-message-box>
     </div>
   </div>
