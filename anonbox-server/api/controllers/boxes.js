@@ -46,3 +46,28 @@ module.exports.postMessage = async (req, res) => {
 	console.log(username, message, box);
 	sendJsonResponse(res, 200, {});
 };
+
+module.exports.createBox = async(req, res) => {
+	const { username, boxType, description } = req.body;
+	const user = await User.findOne({ username });
+
+	console.log(username, boxType, description);
+
+	const box = new Box({
+		username,
+		boxType,
+		description
+	});
+	await box.save();
+
+	sendJsonResponse(res, 200, { box });
+};
+
+module.exports.deleteBox = async(req, res) => {
+	const { boxType } = req.params;
+
+	const box = await Box.findOne({ boxType });
+	await box.remove();
+
+	sendJsonResponse(res, 200, {});
+};

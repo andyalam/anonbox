@@ -14,8 +14,10 @@ const { catchErrors } = require('../handlers/handlers');
 router.post('/register', catchErrors(ctrlAuth.register));
 router.post('/login', ctrlAuth.login);
 
-// Boxes
+// Boxes & Profile pages
 router.get('/profile/:username', catchErrors(ctrlBox.getProfile));
 router.post('/profile/:username', catchErrors(ctrlBox.postMessage));
+router.post('/box', catchErrors(ctrlBox.createBox));
+router.delete('/box/:boxType', catchErrors(ctrlBox.deleteBox));
 
 module.exports = router;

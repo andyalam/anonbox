@@ -11,6 +11,10 @@ const messageSchema = new Schema({
 		minlength: 10,
 		maxlength: 300,
 		required: true
+	},
+	created: {
+		type: Date,
+		default: Date.now
 	}
 });
 
