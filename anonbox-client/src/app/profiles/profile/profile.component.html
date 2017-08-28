@@ -24,11 +24,42 @@
       Select a box below to view the messages within it, or create a new one.
     </h5>
     <div class="addNew__container">
-      <button class="btn btn-default add" (click)="onClickAddNewBox()">
+      <button
+        *ngIf="!isAddFormShown"
+        class="btn btn-default add"
+        (click)="onClickAddNewBox()">
         Add
       </button>
       <div class="addNew__form" *ngIf="isAddFormShown">
-        test123
+        <div
+          class="cancel"
+          (click)="onClickAddNewBox()">
+          <i class="fa fa-times" aria-hidden="true"></i>
+        </div>
+        <form #addNewForm (ngSubmit)="onSubmitAddNewForm">
+          <div class="form-group">
+            <label for="boxType">Box Type</label>
+            <input
+              type="text"
+              class="form-control"
+              name="boxType"
+              ngModel
+              required />
+          </div>
+          <div class="form-group">
+            <label for="description">Description (optional)</label>
+            <input
+              type="text"
+              class="form-control"
+              name="description"
+              ngModel />
+          </div>
+          <div class="text-right">
+            <button class="btn btn-primary" type="submit">
+              Submit
+            </button>
+          </div>
+        </form>
       </div>
     </div>
     <div

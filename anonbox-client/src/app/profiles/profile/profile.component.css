@@ -27,3 +27,20 @@
 .addNew__container {
 	text-align: right;
 }
+.addNew__form {
+	position: relative;
+	text-align: left;
+	border: 1px solid #ccc;
+	padding: 15px;
+}
+.addNew__form .cancel {
+	position: absolute;
+	top: 5px;
+	right: 7px;
+	font-size: 21px;
+	padding: 0 9px;
+}
+.addNew__form .cancel:hover {
+	cursor: pointer;
+	background: rgba(0,0,0,0.2);
+}
