@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 import { ProfilesService } from '../profiles.service';
 import { AuthService } from '../../auth/auth.service';
@@ -90,6 +91,20 @@ export class ProfileComponent implements OnInit {
 
   onClickAddNewBox() {
     this.isAddFormShown = !this.isAddFormShown;
+  }
+
+  onSubmitAddNewForm(form: NgForm) {
+    console.log(form.value);
+    const { username } = this.authService.getUser();
+    const { boxType, description } = form.value;
+
+    const parsedDescription = description.length > 0 ? description : null;
+
+    this.profilesService.createBox(username, boxType, parsedDescription)
+      .subscribe(
+        res => console.log(res.json()),
+        err => console.log(err)
+      );
   }
 
 }

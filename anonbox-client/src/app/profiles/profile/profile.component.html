@@ -36,26 +36,35 @@
           (click)="onClickAddNewBox()">
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
-        <form #addNewForm (ngSubmit)="onSubmitAddNewForm">
+        <form #addNewForm="ngForm" (ngSubmit)="onSubmitAddNewForm(addNewForm)">
           <div class="form-group">
             <label for="boxType">Box Type</label>
             <input
               type="text"
               class="form-control"
+              id="boxType"
               name="boxType"
               ngModel
+              #boxType="ngModel"
               required />
+            <p *ngIf="boxType.touched && !boxType.valid" class="bg-danger form-error">
+              Box Type is required!
+            </p>
           </div>
           <div class="form-group">
             <label for="description">Description (optional)</label>
             <input
               type="text"
               class="form-control"
+              id="description"
               name="description"
               ngModel />
           </div>
           <div class="text-right">
-            <button class="btn btn-primary" type="submit">
+            <button
+              class="btn btn-primary"
+              type="submit"
+              [disabled]="!addNewForm.valid">
               Submit
             </button>
           </div>
