@@ -48,3 +48,8 @@
 .addNew__form .form-error {
 	padding: 5px;
 }
+.addNew__form .error {
+	margin: 10px auto 15px;
+	padding: 15px;
+	text-align: center;
+}

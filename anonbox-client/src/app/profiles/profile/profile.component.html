@@ -23,6 +23,7 @@
     <h5>
       Select a box below to view the messages within it, or create a new one.
     </h5>
+
     <div class="addNew__container">
       <button
         *ngIf="!isAddFormShown"
@@ -36,9 +37,10 @@
           (click)="onClickAddNewBox()">
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
+
         <form #addNewForm="ngForm" (ngSubmit)="onSubmitAddNewForm(addNewForm)">
           <div class="form-group">
-            <label for="boxType">Box Type</label>
+            <label for="boxType">Box Type*</label>
             <input
               type="text"
               class="form-control"
@@ -65,12 +67,20 @@
               class="btn btn-primary"
               type="submit"
               [disabled]="!addNewForm.valid">
-              Submit
+              <span *ngIf="!isAddFormLoading">Submit</span>
+              <span *ngIf="isAddFormLoading">
+                <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+              </span>
             </button>
+            <div class="error bg-danger" *ngIf="addFormError">
+              {{ addFormError }}
+            </div>
           </div>
         </form>
+
       </div>
     </div>
+
     <div
       *ngFor="let box of profile.boxes"
       class="box"
@@ -85,6 +95,7 @@
         </button>
       </div>
     </div>
+
     <div class="box-selected-holder">
       <app-message-view-box [box]="selectedBox">
       </app-message-view-box>

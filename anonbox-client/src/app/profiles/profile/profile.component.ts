@@ -17,7 +17,9 @@ export class ProfileComponent implements OnInit {
   error: string = '';
 
   selectedBox;
-  isAddFormShown: boolean = false;
+  isAddFormShown: boolean = false; // default needed for direct toggle
+  isAddFormLoading: boolean;
+  addFormError: string;
 
   constructor(private profilesService: ProfilesService,
               private authService: AuthService,
@@ -100,10 +102,23 @@ export class ProfileComponent implements OnInit {
 
     const parsedDescription = description.length > 0 ? description : null;
 
+    this.isAddFormLoading = true;
+
     this.profilesService.createBox(username, boxType, parsedDescription)
       .subscribe(
-        res => console.log(res.json()),
-        err => console.log(err)
+        res => {
+          this.isAddFormLoading = false;
+          this.onClickAddNewBox(); // close add form box
+
+          const { box } = res.json();
+          this.profile.boxes.push(box);
+        },
+        err => {
+          this.isAddFormLoading = false;
+          this.addFormError = err;
+          setTimeout(() => this.addFormError = null, 5000);
+          console.log(err);
+        }
       );
   }
 
