@@ -68,10 +68,19 @@ export class ProfileComponent implements OnInit {
     console.log('new box selected', this.selectedBox);
   }
 
+  removeBox(targetBox) {
+    this.profile.boxes = this.profile.boxes.filter(box => {
+      return targetBox.boxType != box.boxType;
+    });
+  }
+
   onClickDeleteBox(box) {
     this.profilesService.deleteBox(box)
       .subscribe(
-        res => console.log(res),
+        res => {
+          const { box } = res.json();
+          this.removeBox(box);
+        },
         err => console.log(err)
       );
   }

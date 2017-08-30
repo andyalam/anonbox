@@ -69,5 +69,5 @@ module.exports.deleteBox = async(req, res) => {
 	const box = await Box.findOne({ boxType });
 	await box.remove();
 
-	sendJsonResponse(res, 200, {});
+	sendJsonResponse(res, 200, { box });
 };
