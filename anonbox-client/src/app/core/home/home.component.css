@@ -1,0 +1,36 @@
+.home {
+	margin-top: 30px;
+}
+.call-to-action {
+	margin: 50px auto;
+	text-align: center;
+}
+.call-to-action .section {
+	border: 1px solid #ccc;
+	height: 300px;
+	padding: 40px 15px;
+}
+.call-to-action .icons-container {
+	margin-bottom: 30px;
+}
+.call-to-action .icons-container .fa {
+	font-size: 90px;
+}
+.call-to-action .icons-container.tiny-icons {
+	margin-bottom: 51px;
+}
+.call-to-action .icons-container.tiny-icons .fa {
+	font-size: 70px;
+}
+.cta-btn {
+	margin-top: 30px;
+}
+
+@media (max-width: 768px) {
+	.call-to-action .section {
+		height: 250px;
+	}
+	.call-to-action .col-sm-4:not(:last-of-type) .section {
+		border-bottom: none;
+	}
+}
