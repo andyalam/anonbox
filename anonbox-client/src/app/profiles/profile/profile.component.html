@@ -29,7 +29,7 @@
         *ngIf="!isAddFormShown"
         class="btn btn-default add"
         (click)="onClickAddNewBox()">
-        Add
+        <i class="fa fa-plus" aria-hidden="true"></i>
       </button>
       <div class="addNew__form" *ngIf="isAddFormShown">
         <div
@@ -64,10 +64,12 @@
           </div>
           <div class="text-right">
             <button
-              class="btn btn-primary"
+              class="btn btn-primary btn-block"
               type="submit"
               [disabled]="!addNewForm.valid">
-              <span *ngIf="!isAddFormLoading">Submit</span>
+              <span *ngIf="!isAddFormLoading">
+                <i class="fa fa-floppy-o" aria-hidden="true"></i>
+              </span>
               <span *ngIf="isAddFormLoading">
                 <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
               </span>
@@ -91,7 +93,7 @@
       </div>
       <div class="box__trash" *ngIf="box.boxType !== 'general'">
         <button class="btn btn-danger" (click)="onClickDeleteBox(box)">
-          Delete
+          <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
       </div>
     </div>
