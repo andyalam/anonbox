@@ -1,5 +1,6 @@
 import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { SessionStoreService } from '../shared/sessionStore.service';
 
@@ -7,8 +8,20 @@ import { API } from '../shared/config';
 
 @Injectable()
 export class AuthService {
+	 authStatus: BehaviorSubject<boolean>;
+
 	constructor(private http: Http,
-							private sessionStore: SessionStoreService) {}
+							private sessionStore: SessionStoreService)
+	{
+		this.authStatus = new BehaviorSubject(false);
+	}
+
+	setAuthStatus() {
+		const status = this.isAuthenticated();
+
+		this.authStatus.next(status);
+		console.log(this.authStatus.getValue());
+	}
 
 	register(email: string, username: string, password: string) {
 		const endpoint: string = API + '/register';
@@ -32,6 +45,7 @@ export class AuthService {
 		this.sessionStore.clearStorage(
 			this.sessionStore.USER
 		);
+		this.setAuthStatus();
 	}
 
 	getToken() {

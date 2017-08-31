@@ -45,6 +45,7 @@ export class LoginComponent implements OnInit {
           const { token, user } = res.json();
           this.authService.setToken(token);
           this.authService.setUser(user);
+          this.authService.setAuthStatus();
           this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {

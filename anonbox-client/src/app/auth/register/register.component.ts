@@ -51,9 +51,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       .subscribe(
         (res) => {
           console.log(res.json());
-          const { token } = res.json();
+          const { token, user } = res.json();
           this.authService.setToken(token);
-          this.router.navigate(['/']);
+          this.authService.setUser(user);
+          this.authService.setAuthStatus();
+          this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {
           const { errmsg } = err.json();
