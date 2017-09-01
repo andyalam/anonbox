@@ -15,7 +15,12 @@ module.exports.getProfile = async (req, res) => {
 
 module.exports.postMessage = async (req, res) => {
 	const { username } = req.params;
-	const { message } = req.body;
+	let { message, boxType } = req.body;
+
+	// If boxType hasn't been passed, assume general box
+	if (!boxType) {
+		boxType = BOX_OPTIONS['general'];
+	}
 
 	if (!username || !message) {
 		sendJsonResponse(res, 400, {
@@ -29,12 +34,7 @@ module.exports.postMessage = async (req, res) => {
 		});
 	}
 
-	// TODO: assume general boxtype, pass in box type via post body
-	// later once MVP completed
-	const box = await Box.findOne({
-		username,
-		boxType: BOX_OPTIONS['general']
-	});
+	const box = await Box.findOne({ username, boxType });
 
 	box.messages.push({
 		text: message
