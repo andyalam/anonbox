@@ -50,7 +50,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registeringSubscription = this.authService.register(email, username, password1)
       .subscribe(
         (res) => {
-          console.log(res.json());
           const { token, user } = res.json();
           this.authService.setToken(token);
           this.authService.setUser(user);

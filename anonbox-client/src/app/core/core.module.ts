@@ -6,11 +6,13 @@ import { AuthService } from '../auth/auth.service';
 import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { SessionStoreService } from '../shared/sessionStore.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
 	declarations: [
 		NavComponent,
-		HomeComponent
+		HomeComponent,
+		ErrorPageComponent
 	],
 	imports: [
 		SharedModule,

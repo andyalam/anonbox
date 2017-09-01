@@ -50,7 +50,6 @@ export class MessageBoxComponent implements OnInit {
   handleMessageSuccess(res) {
     this.isFormLoading = false;
     this.isSuccessShown = true;
-    console.log(res);
   }
 
   handleMessageError(errRes) {

@@ -20,7 +20,6 @@ export class AuthService {
 		const status = this.isAuthenticated();
 
 		this.authStatus.next(status);
-		console.log(this.authStatus.getValue());
 	}
 
 	register(email: string, username: string, password: string) {

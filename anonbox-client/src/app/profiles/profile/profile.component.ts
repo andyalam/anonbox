@@ -40,8 +40,15 @@ export class ProfileComponent implements OnInit {
           this.isProfileLoading = false;
           console.log(res.json());
           const { user, boxes } = res.json();
+
+          // User not found
+          if(!user) {
+            this.onProfileNotFound();
+            return;
+          }
+
           const { username } = user;
-          this.profile = { ...this.profile, username, boxes  };
+          this.profile = { ...this.profile, username, boxes };
           console.log(this.profile);
 
           // check to see if current user is logged in user,
@@ -61,6 +68,10 @@ export class ProfileComponent implements OnInit {
           this.error = errmsg ? errmsg : 'Profile Load Failed';
         }
       );
+  }
+
+  onProfileNotFound() {
+    this.router.navigate(['/not-found']);
   }
 
   onClickBox(box) {
