@@ -96,6 +96,7 @@ export class ProfileComponent implements OnInit {
       );
   }
 
+  // TODO: Refactor this using the new auth service Observable
   isProfileOwner(): boolean {
     if (!this.profile || !this.authService.getUser()) {
       return false;

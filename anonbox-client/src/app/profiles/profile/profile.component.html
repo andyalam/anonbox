@@ -1,107 +1,86 @@
 <div class="profile" *ngIf="profile">
 
-  <!-- User doesn't own profile -->
-  <div *ngIf="!isProfileOwner()">
-    <div *ngIf="error" class="error-text bg-danger">
-      {{ error }}
-    </div>
-    <div class="loader" *ngIf="isProfileLoading">
-      <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
-    </div>
-    <div class="profile__content" *ngIf="!isProfileLoading">
-      <div class="profile-details">
-        <!--
-        TODO: replace this with placeholder image / eventual profile image
-              when you're off this flight and have access to wifi
-        -->
-        <div class="placeholder-img"></div>
-        <h2 class="username">{{ profile.username }}</h2>
-      </div>
-      <div
-        *ngFor="let box of profile.boxes"
-        class="box"
-        (click)="onClickBox(box)">
-        <div class="box__description">
-          <i
-            [ngClass]="{ 'active': selectedBox && (box.boxType == selectedBox.boxType) }" 
-            class="fa fa-cube"
-            aria-hidden="true"></i>
-          {{ box.boxType }}
-        </div>
-      </div>
-      <div *ngIf="profile && profile.username && selectedBox">
-        {{ selectedBox.boxType }}
-        <app-message-box
-          [receiver]="profile.username"
-          [boxType]="selectedBox.boxType">
-        </app-message-box>
-      </div>
-    </div>
+  <div *ngIf="error" class="error-text bg-danger">
+    {{ error }}
   </div>
 
-  <!-- User owns profile -->
-  <div *ngIf="isProfileOwner()">
-    <h2>Welcome to your profile, {{ profile.username }}!</h2>
-    <h5>
-      Select a box below to view the messages within it, or create a new one.
-    </h5>
+  <div class="loader" *ngIf="isProfileLoading">
+    <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+  </div>
 
-    <div class="addNew__container">
-      <button
-        *ngIf="!isAddFormShown"
-        class="btn btn-default add"
-        (click)="onClickAddNewBox()">
-        <i class="fa fa-plus" aria-hidden="true"></i>
-      </button>
-      <div class="addNew__form" *ngIf="isAddFormShown">
-        <div
-          class="cancel"
+  <div class="profile__content" *ngIf="!isProfileLoading">
+    <div class="profile-details">
+      <!--
+      TODO: replace this with placeholder image / eventual profile image
+            when you're off this flight and have access to wifi
+      -->
+      <div class="placeholder-img"></div>
+      <h2 class="username">{{ profile.username }}</h2>
+    </div>
+
+    <div *ngIf="isProfileOwner()">
+      <h2>Welcome to your profile, {{ profile.username }}!</h2>
+      <h5>
+        Select a box below to view the messages within it, or create a new one.
+      </h5>
+
+      <div class="addNew__container">
+        <button
+          *ngIf="!isAddFormShown"
+          class="btn btn-default add"
           (click)="onClickAddNewBox()">
-          <i class="fa fa-times" aria-hidden="true"></i>
-        </div>
+          <i class="fa fa-plus" aria-hidden="true"></i>
+        </button>
+        <div class="addNew__form" *ngIf="isAddFormShown">
+          <div
+            class="cancel"
+            (click)="onClickAddNewBox()">
+            <i class="fa fa-times" aria-hidden="true"></i>
+          </div>
 
-        <form #addNewForm="ngForm" (ngSubmit)="onSubmitAddNewForm(addNewForm)">
-          <div class="form-group">
-            <label for="boxType">Box Type*</label>
-            <input
-              type="text"
-              class="form-control"
-              id="boxType"
-              name="boxType"
-              ngModel
-              #boxType="ngModel"
-              required />
-            <p *ngIf="boxType.touched && !boxType.valid" class="bg-danger form-error">
-              Box Type is required!
-            </p>
-          </div>
-          <div class="form-group">
-            <label for="description">Description (optional)</label>
-            <input
-              type="text"
-              class="form-control"
-              id="description"
-              name="description"
-              ngModel />
-          </div>
-          <div class="text-right">
-            <button
-              class="btn btn-primary btn-block"
-              type="submit"
-              [disabled]="!addNewForm.valid">
-              <span *ngIf="!isAddFormLoading">
-                <i class="fa fa-floppy-o" aria-hidden="true"></i>
-              </span>
-              <span *ngIf="isAddFormLoading">
-                <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
-              </span>
-            </button>
-            <div class="error bg-danger" *ngIf="addFormError">
-              {{ addFormError }}
+          <form #addNewForm="ngForm" (ngSubmit)="onSubmitAddNewForm(addNewForm)">
+            <div class="form-group">
+              <label for="boxType">Box Type*</label>
+              <input
+                type="text"
+                class="form-control"
+                id="boxType"
+                name="boxType"
+                ngModel
+                #boxType="ngModel"
+                required />
+              <p *ngIf="boxType.touched && !boxType.valid" class="bg-danger form-error">
+                Box Type is required!
+              </p>
             </div>
-          </div>
-        </form>
+            <div class="form-group">
+              <label for="description">Description (optional)</label>
+              <input
+                type="text"
+                class="form-control"
+                id="description"
+                name="description"
+                ngModel />
+            </div>
+            <div class="text-right">
+              <button
+                class="btn btn-primary btn-block"
+                type="submit"
+                [disabled]="!addNewForm.valid">
+                <span *ngIf="!isAddFormLoading">
+                  <i class="fa fa-floppy-o" aria-hidden="true"></i>
+                </span>
+                <span *ngIf="isAddFormLoading">
+                  <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
+                </span>
+              </button>
+              <div class="error bg-danger" *ngIf="addFormError">
+                {{ addFormError }}
+              </div>
+            </div>
+          </form>
 
+        </div>
       </div>
     </div>
 
@@ -110,20 +89,36 @@
       class="box"
       (click)="onClickBox(box)">
       <div class="box__description">
-        <i class="fa fa-cube" aria-hidden="true"></i>
+        <i
+          [ngClass]="{ 'active': selectedBox && (box.boxType == selectedBox.boxType) }"
+          class="fa fa-cube"
+          aria-hidden="true"></i>
         {{ box.boxType }}
       </div>
-      <div class="box__trash" *ngIf="box.boxType !== 'general'">
+      <div
+        class="box__trash"
+        *ngIf="(box.boxType !== 'general') && isProfileOwner()">
         <button class="btn btn-danger" (click)="onClickDeleteBox(box)">
           <i class="fa fa-trash" aria-hidden="true"></i>
         </button>
       </div>
     </div>
 
-    <div class="box-selected-holder">
+    <div
+      *ngIf="(profile && profile.username && selectedBox) && !isProfileOwner()">
+      {{ selectedBox.boxType }}
+      <app-message-box
+        [receiver]="profile.username"
+        [boxType]="selectedBox.boxType">
+      </app-message-box>
+    </div>
+
+    <div class="box-selected-holder" *ngIf="isProfileOwner()">
       <app-message-view-box [box]="selectedBox">
       </app-message-view-box>
     </div>
+
+
   </div>
 
 </div>
