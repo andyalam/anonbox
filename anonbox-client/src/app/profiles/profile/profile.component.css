@@ -53,3 +53,36 @@
 	padding: 15px;
 	text-align: center;
 }
+
+.profile-details {
+	position: relative;
+	min-height: 150px;
+	text-align: center;
+	border-top: 103px solid #ccc;
+	padding: 15px;
+}
+.profile-details .placeholder-img {
+	position: absolute;
+	top: -71px;
+	right: 50%;
+	transform: translateX(50%);
+	height: 90px;
+	width: 90px;
+	background: #fff;
+	border: 1px solid gray;
+	border-radius: 100%;
+	margin: 0 auto;
+}
+
+.fa-cube.active {
+	position: relative;
+	color: blue;
+	z-index: 10;
+}
+.fa-cube.active::after {
+	position: absolute;
+	z-index: 1;
+	content: '>';
+	top: 0;
+	left: -10px;
+}

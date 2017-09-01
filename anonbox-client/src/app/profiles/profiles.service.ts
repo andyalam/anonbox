@@ -14,9 +14,9 @@ export class ProfilesService {
 		return this.http.get(endpoint);
 	}
 
-	postMessage(username, message): Observable<Response> {
+	postMessage(username, message, boxType?): Observable<Response> {
 		const endpoint = API + `/profile/${username}`;
-		const data = { message };
+		const data = { message, boxType };
 
 		return this.http.post(endpoint, data);
 	}

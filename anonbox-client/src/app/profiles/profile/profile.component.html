@@ -9,9 +9,31 @@
       <i class="fa fa-circle-o-notch fa-spin" style="font-size:24px"></i>
     </div>
     <div class="profile__content" *ngIf="!isProfileLoading">
-      {{ profile.username }}
-      <div *ngIf="profile && profile.username">
-        <app-message-box [receiver]="profile.username">
+      <div class="profile-details">
+        <!--
+        TODO: replace this with placeholder image / eventual profile image
+              when you're off this flight and have access to wifi
+        -->
+        <div class="placeholder-img"></div>
+        <h2 class="username">{{ profile.username }}</h2>
+      </div>
+      <div
+        *ngFor="let box of profile.boxes"
+        class="box"
+        (click)="onClickBox(box)">
+        <div class="box__description">
+          <i
+            [ngClass]="{ 'active': selectedBox && (box.boxType == selectedBox.boxType) }" 
+            class="fa fa-cube"
+            aria-hidden="true"></i>
+          {{ box.boxType }}
+        </div>
+      </div>
+      <div *ngIf="profile && profile.username && selectedBox">
+        {{ selectedBox.boxType }}
+        <app-message-box
+          [receiver]="profile.username"
+          [boxType]="selectedBox.boxType">
         </app-message-box>
       </div>
     </div>

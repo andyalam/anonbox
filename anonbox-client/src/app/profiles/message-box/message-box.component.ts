@@ -13,6 +13,7 @@ export class MessageBoxComponent implements OnInit {
   messageForm: FormGroup;
   @Input() receiver;
   @Input() sender;
+  @Input() boxType;
 
   isFormShown: boolean = true;
   isFormLoading: boolean;
@@ -40,7 +41,11 @@ export class MessageBoxComponent implements OnInit {
     this.isFormLoading = true;
 
     this.profilesService
-      .postMessage(this.receiver, this.messageForm.value.message)
+      .postMessage(
+        this.receiver,
+        this.messageForm.value.message,
+        this.boxType
+      )
       .subscribe(
         this.handleMessageSuccess.bind(this),
         this.handleMessageError.bind(this)
