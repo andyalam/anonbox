@@ -76,7 +76,7 @@
 
 .fa-cube.active {
 	position: relative;
-	color: blue;
+	color: #26C6DA;
 	z-index: 10;
 }
 .fa-cube.active::after {

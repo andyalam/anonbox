@@ -51,14 +51,8 @@ export class ProfileComponent implements OnInit {
           this.profile = { ...this.profile, username, boxes };
           console.log(this.profile);
 
-          // check to see if current user is logged in user,
-          // if so, set appropriate flag(s)
-          const loggedInUser = this.authService.getUser();
-          if (loggedInUser) {
-            console.log('logged in user: ', loggedInUser);
-            if (loggedInUser.username == username) {
-              console.log('is owner');
-            }
+          if (boxes && boxes.length) {
+            this.selectedBox = boxes[0];
           }
 
         },
