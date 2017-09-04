@@ -14,44 +14,46 @@
 	border: 1px solid #ccc;
 	padding: 15px;
 	margin: 15px auto;
-}
-.box:hover {
-	cursor: pointer;
-}
-.box .box__trash {
-	position: absolute;
-	top: 8px;
-	right: 5px;
+	&:hover {
+		cursor: pointer;
+	}
+	&__trash {
+		position: absolute;
+		top: 8px;
+		right: 5px;
+	}
 }
 
-.addNew__container {
-	text-align: right;
-}
-.addNew__form {
-	position: relative;
-	text-align: left;
-	border: 1px solid #ccc;
-	padding: 15px;
-}
-.addNew__form .cancel {
-	position: absolute;
-	top: 5px;
-	right: 7px;
-	font-size: 21px;
-	padding: 0 7px;
-	border-radius: 100%;
-}
-.addNew__form .cancel:hover {
-	cursor: pointer;
-	background: rgba(0,0,0,0.2);
-}
-.addNew__form .form-error {
-	padding: 5px;
-}
-.addNew__form .error {
-	margin: 10px auto 15px;
-	padding: 15px;
-	text-align: center;
+.addNew {
+	&__container {
+		text-align: right;
+	}
+	&__form {
+		position: relative;
+		text-align: left;
+		border: 1px solid #ccc;
+		padding: 15px;
+		.cancel {
+			position: absolute;
+			top: 5px;
+			right: 7px;
+			font-size: 21px;
+			padding: 0 7px;
+			border-radius: 100%;
+			&:hover {
+				cursor: pointer;
+				background: rgba(0,0,0,0.2);
+			}
+		}
+		.form-error {
+			padding: 5px;
+		}
+		.error {
+			margin: 10px auto 15px;
+			padding: 15px;
+			text-align: center;
+		}
+	}
 }
 
 .profile-details {
@@ -60,29 +62,29 @@
 	text-align: center;
 	border-top: 103px solid #ccc;
 	padding: 15px;
-}
-.profile-details .placeholder-img {
-	position: absolute;
-	top: -71px;
-	right: 50%;
-	transform: translateX(50%);
-	height: 90px;
-	width: 90px;
-	background: #fff;
-	border: 1px solid gray;
-	border-radius: 100%;
-	margin: 0 auto;
+	.placeholder-img {
+		position: absolute;
+		top: -71px;
+		right: 50%;
+		transform: translateX(50%);
+		height: 90px;
+		width: 90px;
+		background: #fff;
+		border: 1px solid gray;
+		border-radius: 100%;
+		margin: 0 auto;
+	}
 }
 
 .fa-cube.active {
 	position: relative;
 	color: #26C6DA;
 	z-index: 10;
-}
-.fa-cube.active::after {
-	position: absolute;
-	z-index: 1;
-	content: '>';
-	top: 0;
-	left: -10px;
+	&::after {
+		position: absolute;
+		z-index: 1;
+		content: '>';
+		top: 0;
+		left: -10px;
+	}
 }
