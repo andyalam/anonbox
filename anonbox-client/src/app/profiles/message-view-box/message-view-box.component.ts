@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-message-view-box',
   templateUrl: './message-view-box.component.html',
-  styleUrls: ['./message-view-box.component.css']
+  styleUrls: ['./message-view-box.component.scss']
 })
 export class MessageViewBoxComponent implements OnInit {
 

@@ -8,7 +8,7 @@ import { AuthService } from '../auth.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['../auth.css']
+  styleUrls: ['../auth.scss']
 })
 export class LoginComponent implements OnInit {
   loggingInSubscription: Subscription;
