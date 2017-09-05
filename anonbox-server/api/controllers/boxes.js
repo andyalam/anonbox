@@ -8,7 +8,11 @@ const User = mongoose.model('User');
 module.exports.getProfile = async (req, res) => {
 	console.log(req.params);
 	const { username } = req.params;
-	const boxes = await Box.find({ username });
+	let boxes = await Box.find({ username });
+	boxes.forEach(box => {
+		box.sortMessages()
+	});
+
 	const user = await User.findOne({ username });
 	sendJsonResponse(res, 200, { boxes, user });
 };

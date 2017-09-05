@@ -25,4 +25,12 @@ const boxSchema = new Schema({
 	messages: [messageSchema]
 });
 
+boxSchema.methods.sortMessages = function() {
+	if (!this.messages.length) { return; }
+
+	this.messages = this.messages.sort((a, b) => {
+		return a.created < b.created;
+	});
+};
+
 mongoose.model('Box', boxSchema);
