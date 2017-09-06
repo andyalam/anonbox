@@ -2,7 +2,8 @@
   <h4>{{ box.boxType }}</h4>
   <div class="messages__container" *ngIf="box.messages && box.messages.length > 0">
     <div class="message" *ngFor="let message of box.messages">
-      {{ message.text }}
+      <p class="message__text">{{ message.text }}</p>
+      <p class="message__date">{{ message.created | date }}</p>
     </div>
   </div>
   <div class="empty-state" *ngIf="box.messages && box.messages.length == 0">

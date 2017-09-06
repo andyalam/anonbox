@@ -19,8 +19,14 @@
 	}
 	&__trash {
 		position: absolute;
-		top: 8px;
+		top: 50%;
 		right: 5px;
+		transform: translateY(-50%);
+	}
+	&__description {
+		margin-top: 4px;
+		margin-left: 18px;
+		font-size: 11px;
 	}
 }
 

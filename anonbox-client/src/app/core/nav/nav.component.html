@@ -1,4 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-default navbar-fixed-top">
   <div class="container">
     <div class="navbar-header">
       <a class="navbar-brand" routerLink="/">
@@ -19,9 +19,9 @@
         </ng-template>
         <ng-template [ngIf]="isLoggedIn()">
           <li routerLinkActive="active"><a [routerLink]="['/profile', getUsername()]">Profile</a></li>
-          <li><a (click)="onLogout()">Logout</a></li>
+          <li><a class="logout" (click)="onLogout()">Logout</a></li>
         </ng-template>
       </ul>
     </div>
   </div>
-</div>
+</nav>

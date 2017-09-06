@@ -89,12 +89,17 @@
           *ngFor="let box of profile.boxes"
           class="box"
           (click)="onClickBox(box)">
-          <div class="box__description">
-            <i
-              [ngClass]="{ 'active': selectedBox && (box.boxType == selectedBox.boxType) }"
-              class="fa fa-cube"
-              aria-hidden="true"></i>
-            {{ box.boxType }}
+          <div>
+            <div class="box__title">
+              <i
+                [ngClass]="{ 'active': selectedBox && (box.boxType == selectedBox.boxType) }"
+                class="fa fa-cube"
+                aria-hidden="true"></i>
+              {{ box.boxType }}
+            </div>
+            <div class="box__description" *ngIf="box.description">
+              {{ box.description }}
+            </div>
           </div>
           <div
             class="box__trash"

@@ -1,0 +1,22 @@
+@import "~variables.scss";
+
+$nav-color: #fff;
+
+nav {
+	background: $main-400;
+	border-bottom-color: $main-700;
+	.navbar-brand, .navbar-nav li a {
+		color: $nav-color;
+	}
+	.navbar-brand:hover, .navbar-nav li a:hover {
+		color: #fff * 0.9;
+	}
+	.navbar-nav {
+		.active a {
+			background: $main-800;
+		}
+	}
+	.logout:hover {
+		cursor: pointer;
+	}
+}
