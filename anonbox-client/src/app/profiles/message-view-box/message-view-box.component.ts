@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnChanges, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -6,21 +6,13 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './message-view-box.component.html',
   styleUrls: ['./message-view-box.component.scss']
 })
-export class MessageViewBoxComponent implements OnInit {
+export class MessageViewBoxComponent implements OnInit, OnChanges {
 
   @Input() box;
 
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // OLD: old code, was messing with using QS but ran into issues
-    //      becaues of async nature of profile component
-    // const profileParams = this.route.parent.snapshot.params;
-    // const { id } = profileParams;
-    // const { boxType } = this.route.snapshot.params;
-    // console.log(boxType, id);
-
-    console.log(this.box);
   }
 
   ngOnChanges() {

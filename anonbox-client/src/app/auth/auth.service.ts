@@ -13,7 +13,9 @@ export class AuthService {
 	constructor(private http: Http,
 							private sessionStore: SessionStoreService)
 	{
-		this.authStatus = new BehaviorSubject(false);
+		const loggedIn: boolean = !!this.getToken();
+
+		this.authStatus = new BehaviorSubject(loggedIn);
 	}
 
 	setAuthStatus() {
@@ -32,6 +34,7 @@ export class AuthService {
 	login(email: string, password: string) {
 		const endpoint: string = API + '/login';
 		const body = { email, password };
+		this.setAuthStatus();
 
 		return this.http.post(endpoint, body);
 	}
