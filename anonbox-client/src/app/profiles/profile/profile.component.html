@@ -14,7 +14,10 @@
       TODO: replace this with placeholder image / eventual profile image
             when you're off this flight and have access to wifi
       -->
-      <div class="placeholder-img"></div>
+      <div
+        class="placeholder-img"
+        [ngStyle]="{ 'background-image': profile.imageCSS }">
+      </div>
       <h2 class="username">{{ profile.username }}</h2>
     </div>
 

@@ -40,6 +40,7 @@ export class ProfileComponent implements OnInit {
           this.isProfileLoading = false;
           console.log(res.json());
           const { user, boxes } = res.json();
+          const { username } = user;
 
           // User not found
           if(!user) {
@@ -47,8 +48,12 @@ export class ProfileComponent implements OnInit {
             return;
           }
 
-          const { username } = user;
-          this.profile = { ...this.profile, username, boxes };
+          this.profile = {
+            ...this.profile,
+            username,
+            boxes,
+            imageCSS: 'url(/assets/profile_placeholder.jpg)'
+          };
           console.log(this.profile);
 
           if (boxes && boxes.length) {
