@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ProfilesService } from '../profiles.service';
 import { AuthService } from '../../auth/auth.service';
@@ -10,7 +11,7 @@ import { AuthService } from '../../auth/auth.service';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
 
   profile;
   isProfileLoading: boolean;
@@ -21,6 +22,9 @@ export class ProfileComponent implements OnInit {
   isAddFormLoading: boolean;
   addFormError: string;
 
+  isProfileOwner: boolean;
+  profileOwnerSubscription: Subscription;
+
   constructor(private profilesService: ProfilesService,
               private authService: AuthService,
               private route: ActivatedRoute,
@@ -28,6 +32,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.loadProfile();
+  }
+
+  ngOnDestroy() {
+    this.profileOwnerSubscription && this.profileOwnerSubscription.unsubscribe();
   }
 
   loadProfile() {
@@ -56,6 +64,9 @@ export class ProfileComponent implements OnInit {
           };
           console.log(this.profile);
 
+          this.watchProfileOwner();
+
+          // select default box
           if (boxes && boxes.length) {
             this.selectedBox = boxes[0];
           }
@@ -95,20 +106,29 @@ export class ProfileComponent implements OnInit {
       );
   }
 
-  // TODO: Refactor this using the new auth service Observable
-  isProfileOwner(): boolean {
-    if (!this.profile || !this.authService.getUser()) {
-      return false;
-    }
+  watchProfileOwner() {
+    const setProfileOwner = (res) => {
+      if (!this.profile || !this.authService.getUser()) {
+        this.isProfileOwner = false;
+        return;
+      }
 
-    const { username } = this.authService.getUser();
-    const profileUsername = this.profile.username;
+      const { username } = this.authService.getUser();
+      const profileUsername = this.profile.username;
 
-    if (!username || !profileUsername) {
-      return false;
-    }
+      if (!username || !profileUsername) {
+        this.isProfileOwner = false;
+        return;
+      }
 
-    return username == profileUsername;
+      this.isProfileOwner = username == profileUsername;
+      return;
+    };
+
+    this.profileOwnerSubscription = this.authService.authStatus.subscribe(
+      setProfileOwner.bind(this),
+      err => this.isProfileOwner = false
+    );
   }
 
   onClickAddNewBox() {
