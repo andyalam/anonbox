@@ -5,13 +5,19 @@
         AnonBox
         <i class="fa fa-cube" aria-hidden="true"></i>
       </a>
-      <button class="navbar-toggle" data-toggle="collapse" data-target=".navHeaderCollapse">
+      <button
+        class="navbar-toggle"
+        data-toggle="collapse"
+        data-target=".navHeaderCollapse"
+        (click)="isNavOpen = isNavOpen">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
     </div>
-    <div class="collapse navbar-collapse navHeaderCollapse">
+    <div
+      class="collapse navbar-collapse navHeaderCollapse"
+      [ngClass]="{ 'in': isNavOpen }">
       <ul class="nav navbar-nav navbar-right">
         <ng-template [ngIf]="!isLoggedIn()">
           <li routerLinkActive="active"><a routerLink="/register">Register</a></li>
