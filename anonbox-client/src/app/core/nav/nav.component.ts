@@ -9,6 +9,8 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class NavComponent implements OnInit {
 
+  isNavOpen: boolean;
+
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
@@ -26,6 +28,19 @@ export class NavComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.authService.isAuthenticated();
+  }
+
+  toggleNav() {
+    this.isNavOpen = !this.isNavOpen;
+  }
+
+  openNav() {
+    this.isNavOpen = true;
+  }
+
+  closeNav() {
+    console.log('close');
+    this.isNavOpen = false;
   }
 
 }
