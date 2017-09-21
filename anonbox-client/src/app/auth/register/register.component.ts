@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
@@ -11,11 +18,13 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
   templateUrl: './register.component.html',
   styleUrls: ['../auth.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy {
+export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
   registeringSubscription: Subscription;
   registerForm: FormGroup;
   loading: boolean = false;
   error: string = '';
+
+  @ViewChild('initialInput') initialInput: ElementRef;
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -26,6 +35,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.registeringSubscription && this.registeringSubscription.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    this.initialInput.nativeElement.focus();
   }
 
   initForm() {
