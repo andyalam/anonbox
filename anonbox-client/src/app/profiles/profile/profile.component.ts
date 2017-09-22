@@ -60,7 +60,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
             ...this.profile,
             username,
             boxes,
-            imageCSS: 'url(/assets/profile_placeholder.jpg)'
+            imageCSS: 'url(/assets/images/profile_placeholder.jpg)'
           };
           console.log(this.profile);
 
