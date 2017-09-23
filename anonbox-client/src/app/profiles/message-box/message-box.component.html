@@ -4,6 +4,7 @@
     [formGroup]="messageForm"
     (ngSubmit)="onSubmitMessageForm()">
     <textarea
+      #input
       class="form-control"
       rows="5"
       name="message"
