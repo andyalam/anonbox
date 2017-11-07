@@ -18,6 +18,7 @@ import { ProfilesModule } from './profiles/profiles.module';
     BrowserModule,
     FormsModule,
     HttpModule,
+    HttpClientModule,
     CoreModule,
     AppRoutingModule,
     AuthModule,
