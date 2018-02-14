@@ -2,7 +2,7 @@ import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { SessionStoreService } from '../shared/sessionStore.service';
+import { SessionStoreService } from '../core/services/sessionStore.service';
 
 import { API } from '../shared/config';
 
