@@ -8,91 +8,90 @@ import { API } from '../shared/config';
 
 @Injectable()
 export class AuthService {
-	 authStatus: BehaviorSubject<boolean>;
+  authStatus: BehaviorSubject<boolean>;
 
-	constructor(private http: Http,
-							private sessionStore: SessionStoreService)
-	{
-		const loggedIn: boolean = !!this.getToken();
+  constructor(private http: Http,
+              private sessionStore: SessionStoreService) {
+    const loggedIn: boolean = !!this.getToken();
 
-		this.authStatus = new BehaviorSubject(loggedIn);
-	}
+    this.authStatus = new BehaviorSubject(loggedIn);
+  }
 
-	setAuthStatus() {
-		const status = this.isAuthenticated();
+  setAuthStatus() {
+    const status = this.isAuthenticated();
 
-		this.authStatus.next(status);
-	}
+    this.authStatus.next(status);
+  }
 
-	register(email: string, username: string, password: string) {
-		const endpoint: string = API + '/register';
-		const body = { email, username, password };
+  register(email: string, username: string, password: string) {
+    const endpoint: string = API + '/register';
+    const body = { email, username, password };
 
-		return this.http.post(endpoint, body);
-	}
+    return this.http.post(endpoint, body);
+  }
 
-	login(email: string, password: string) {
-		const endpoint: string = API + '/login';
-		const body = { email, password };
-		this.setAuthStatus();
+  login(email: string, password: string) {
+    const endpoint: string = API + '/login';
+    const body = { email, password };
+    this.setAuthStatus();
 
-		return this.http.post(endpoint, body);
-	}
+    return this.http.post(endpoint, body);
+  }
 
-	logout() {
-		this.sessionStore.clearStorage(
-			this.sessionStore.TOKEN
-		);
+  logout() {
+    this.sessionStore.clearStorage(
+      this.sessionStore.TOKEN
+    );
 
-		this.sessionStore.clearStorage(
-			this.sessionStore.USER
-		);
-		this.setAuthStatus();
-	}
+    this.sessionStore.clearStorage(
+      this.sessionStore.USER
+    );
+    this.setAuthStatus();
+  }
 
-	getToken() {
-		return this.sessionStore.getStorage(
-			this.sessionStore.TOKEN
-		);
-	}
+  getToken() {
+    return this.sessionStore.getStorage(
+      this.sessionStore.TOKEN
+    );
+  }
 
-	setToken(token) {
-		this.sessionStore.setStorage(
-			this.sessionStore.TOKEN,
-			token
-		);
-	}
+  setToken(token) {
+    this.sessionStore.setStorage(
+      this.sessionStore.TOKEN,
+      token
+    );
+  }
 
-	getUser() {
-		return this.sessionStore.getStorage(
-			this.sessionStore.USER
-		);
-	}
+  getUser() {
+    return this.sessionStore.getStorage(
+      this.sessionStore.USER
+    );
+  }
 
-	setUser(user) {
-		this.sessionStore.setStorage(
-			this.sessionStore.USER,
-			user
-		);
-	}
+  setUser(user) {
+    this.sessionStore.setStorage(
+      this.sessionStore.USER,
+      user
+    );
+  }
 
-	getHeader() {
-		const token = this.sessionStore.getStorage(
-			this.sessionStore.TOKEN
-		);
+  getHeader() {
+    const token = this.sessionStore.getStorage(
+      this.sessionStore.TOKEN
+    );
 
-		const header = {
-			Authorization: 'Bearer ' + token
-		};
+    const header = {
+      Authorization: 'Bearer ' + token
+    };
 
-		return header;
-	}
+    return header;
+  }
 
-	isAuthenticated() {
-		const token = this.sessionStore.getStorage(
-			this.sessionStore.TOKEN
-		);
-		return token != null;
-	}
+  isAuthenticated() {
+    const token = this.sessionStore.getStorage(
+      this.sessionStore.TOKEN
+    );
+    return token != null;
+  }
 
 }

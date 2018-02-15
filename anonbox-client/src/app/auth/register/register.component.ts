@@ -30,11 +30,13 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
               private router: Router) { }
 
   ngOnInit() {
-    this.initForm()
+    this.initForm();
   }
 
   ngOnDestroy() {
-    this.registeringSubscription && this.registeringSubscription.unsubscribe();
+    if (this.registeringSubscription) {
+      this.registeringSubscription.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {

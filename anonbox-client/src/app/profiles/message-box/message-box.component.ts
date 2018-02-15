@@ -67,7 +67,9 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
   }
 
   focusMessageBox() {
-    this.input && this.input.nativeElement.focus();
+    if (this.input) {
+      this.input.nativeElement.focus();
+    }
   }
 
   onSubmitMessageForm() {

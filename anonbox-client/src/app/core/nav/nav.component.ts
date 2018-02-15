@@ -13,8 +13,7 @@ export class NavComponent implements OnInit {
   isNavOpen: boolean;
 
   constructor(private authService: AuthService,
-              private router: Router)
-  {
+              private router: Router) {
     this.router.events.subscribe(() => {
       this.closeNav();
     });

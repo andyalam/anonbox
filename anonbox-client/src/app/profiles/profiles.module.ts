@@ -10,20 +10,20 @@ import { MessageBoxComponent } from './message-box/message-box.component';
 import { MessageViewBoxComponent } from './message-view-box/message-view-box.component';
 
 @NgModule({
-	declarations: [
-		ProfileComponent,
-		ProfileSettingsComponent,
-		MessageBoxComponent,
-		MessageViewBoxComponent
-	],
-	imports: [
-		FormsModule,
-		ReactiveFormsModule,
-		ProfilesRoutingModule,
-		SharedModule
-	],
-	providers: [
-		ProfilesService
-	]
+  declarations: [
+    ProfileComponent,
+    ProfileSettingsComponent,
+    MessageBoxComponent,
+    MessageViewBoxComponent
+  ],
+  imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    ProfilesRoutingModule,
+    SharedModule
+  ],
+  providers: [
+    ProfilesService
+  ]
 })
 export class ProfilesModule {}

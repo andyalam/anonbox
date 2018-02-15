@@ -35,7 +35,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.profileOwnerSubscription && this.profileOwnerSubscription.unsubscribe();
+    if (this.profileOwnerSubscription) {
+      this.profileOwnerSubscription.unsubscribe();
+    }
   }
 
   loadProfile() {
@@ -51,7 +53,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           const { username } = user;
 
           // User not found
-          if(!user) {
+          if (!user) {
             this.onProfileNotFound();
             return;
           }
@@ -91,7 +93,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   removeBox(targetBox) {
     this.profile.boxes = this.profile.boxes.filter(box => {
-      return targetBox.boxType != box.boxType;
+      return targetBox.boxType !== box.boxType;
     });
   }
 
@@ -99,8 +101,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profilesService.deleteBox(box)
       .subscribe(
         res => {
-          const { box } = res.json();
-          this.removeBox(box);
+          const { deletedBox } = res.json();
+          this.removeBox(deletedBox);
         },
         err => console.log(err)
       );
@@ -121,7 +123,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
         return;
       }
 
-      this.isProfileOwner = username == profileUsername;
+      this.isProfileOwner = username === profileUsername;
       return;
     };
 

@@ -24,7 +24,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // unsubscribe if we've created this subscription previously
-    this.authSubscription && this.authSubscription.unsubscribe();
+    if (this.authSubscription) {
+      this.authSubscription.unsubscribe();
+    }
   }
 
   initAuthSubscription() {

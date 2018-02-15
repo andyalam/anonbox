@@ -6,32 +6,32 @@ import { API } from '../shared/config';
 
 @Injectable()
 export class ProfilesService {
-	constructor(private http: Http) {}
+  constructor(private http: Http) {}
 
-	getProfile(username): Observable<Response> {
-		const endpoint = API + `/profile/${username}`;
+  getProfile(username): Observable<Response> {
+    const endpoint = API + `/profile/${username}`;
 
-		return this.http.get(endpoint);
-	}
+    return this.http.get(endpoint);
+  }
 
-	postMessage(username, message, boxType?): Observable<Response> {
-		const endpoint = API + `/profile/${username}`;
-		const data = { message, boxType };
+  postMessage(username, message, boxType?): Observable<Response> {
+    const endpoint = API + `/profile/${username}`;
+    const data = { message, boxType };
 
-		return this.http.post(endpoint, data);
-	}
+    return this.http.post(endpoint, data);
+  }
 
-	deleteBox(box): Observable<Response> {
-		const endpoint = API + `/box/${box.boxType}`;
+  deleteBox(box): Observable<Response> {
+    const endpoint = API + `/box/${box.boxType}`;
 
-		return this.http.delete(endpoint);
-	}
+    return this.http.delete(endpoint);
+  }
 
-	createBox(username, boxType, description?): Observable<Response> {
-		const endpoint = API + '/box';
-		const data = { username, boxType, description };
+  createBox(username, boxType, description?): Observable<Response> {
+    const endpoint = API + '/box';
+    const data = { username, boxType, description };
 
-		return this.http.post(endpoint, data);
-	}
+    return this.http.post(endpoint, data);
+  }
 
 }

@@ -35,7 +35,6 @@ export function matchOtherValidator (otherControlName: string) {
     }
 
     return null;
-
-  }
+  };
 
 }

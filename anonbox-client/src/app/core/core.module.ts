@@ -9,21 +9,21 @@ import { SessionStoreService } from './services/sessionStore.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
-	declarations: [
-		NavComponent,
-		HomeComponent,
-		ErrorPageComponent
-	],
-	imports: [
-		SharedModule,
-		AppRoutingModule
-	],
-	exports: [
-		NavComponent
-	],
-	providers: [
-		AuthService,
-		SessionStoreService
-	]
+  declarations: [
+    NavComponent,
+    HomeComponent,
+    ErrorPageComponent
+  ],
+  imports: [
+    SharedModule,
+    AppRoutingModule
+  ],
+  exports: [
+    NavComponent
+  ],
+  providers: [
+    AuthService,
+    SessionStoreService
+  ]
 })
 export class CoreModule {}

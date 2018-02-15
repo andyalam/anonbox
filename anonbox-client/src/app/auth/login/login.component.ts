@@ -17,7 +17,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['../auth.scss']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   loggingInSubscription: Subscription;
   loginForm: FormGroup;
   loading: boolean = false;
@@ -37,7 +37,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   ngOnDestroy() {
-    this.loggingInSubscription && this.loggingInSubscription.unsubscribe();
+    if (this.loggingInSubscription) {
+      this.loggingInSubscription.unsubscribe();
+    }
   }
 
   initForm() {
