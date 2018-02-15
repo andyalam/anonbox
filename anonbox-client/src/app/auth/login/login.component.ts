@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.loggingInSubscription = this.authService.login(email, password)
       .subscribe(
         (res) => {
-          const { token, user } = res.json();
+          const { token, user } = res;
           this.authService.setToken(token);
           this.authService.setUser(user);
           this.authService.setAuthStatus();

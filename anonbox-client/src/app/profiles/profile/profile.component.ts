@@ -48,8 +48,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this.isProfileLoading = false;
-          console.log(res.json());
-          const { user, boxes } = res.json();
+          console.log(res);
+          const { user, boxes } = res;
           const { username } = user;
 
           // User not found
@@ -75,7 +75,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
         },
         err => {
-          const { errmsg } = err.json();
+          const { errmsg } = err;
           this.isProfileLoading = false;
           this.error = errmsg ? errmsg : 'Profile Load Failed';
         }
@@ -101,7 +101,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profilesService.deleteBox(box)
       .subscribe(
         res => {
-          const { deletedBox } = res.json();
+          const { deletedBox } = res;
           this.removeBox(deletedBox);
         },
         err => console.log(err)
@@ -152,7 +152,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.isAddFormLoading = false;
           this.onClickAddNewBox(); // close add form box
 
-          const { box } = res.json();
+          const { box } = res;
           this.profile.boxes.push(box);
         },
         err => {

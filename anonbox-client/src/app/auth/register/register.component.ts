@@ -65,14 +65,14 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     this.registeringSubscription = this.authService.register(email, username, password1)
       .subscribe(
         (res) => {
-          const { token, user } = res.json();
+          const { token, user } = res;
           this.authService.setToken(token);
           this.authService.setUser(user);
           this.authService.setAuthStatus();
           this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {
-          const { errmsg } = err.json();
+          const { errmsg } = err;
           this.error = errmsg ? errmsg : 'Authorization Failed';
           this.loading = false;
         }

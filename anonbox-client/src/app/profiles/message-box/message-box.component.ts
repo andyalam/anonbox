@@ -95,7 +95,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
   handleMessageError(errRes) {
     this.isFormLoading = false;
 
-    const { error } = errRes.json();
+    const { error } = errRes;
     this.errorMessage = error;
     setTimeout(() => this.errorMessage = null, 4000);
   }
