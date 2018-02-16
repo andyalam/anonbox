@@ -1,14 +1,12 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   ViewChild,
   ElementRef,
   AfterViewInit
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../auth.service';
 
@@ -17,8 +15,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['../auth.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
-  loggingInSubscription: Subscription;
+export class LoginComponent implements OnInit, AfterViewInit {
   loginForm: FormGroup;
   loading: boolean = false;
   error: string = '';
@@ -36,12 +33,6 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this.initialInput.nativeElement.focus();
   }
 
-  ngOnDestroy() {
-    if (this.loggingInSubscription) {
-      this.loggingInSubscription.unsubscribe();
-    }
-  }
-
   initForm() {
     this.loginForm = new FormGroup({
       'email': new FormControl(null, [Validators.email, Validators.required]),
@@ -53,9 +44,10 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     const { email, password } = this.loginForm.value;
 
     this.loading = true;
-    this.loggingInSubscription = this.authService.login(email, password)
+    this.authService
+      .login(email, password)
       .subscribe(
-        (res) => {
+        (res: any) => {
           const { token, user } = res;
           this.authService.setToken(token);
           this.authService.setUser(user);

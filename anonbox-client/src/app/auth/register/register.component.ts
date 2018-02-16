@@ -1,14 +1,12 @@
 import {
   Component,
   OnInit,
-  OnDestroy,
   ViewChild,
   ElementRef,
   AfterViewInit
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '../auth.service';
 import { matchOtherValidator } from '../../shared/match-other-validator';
@@ -18,8 +16,7 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
   templateUrl: './register.component.html',
   styleUrls: ['../auth.scss']
 })
-export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
-  registeringSubscription: Subscription;
+export class RegisterComponent implements OnInit, AfterViewInit {
   registerForm: FormGroup;
   loading: boolean = false;
   error: string = '';
@@ -31,12 +28,6 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.initForm();
-  }
-
-  ngOnDestroy() {
-    if (this.registeringSubscription) {
-      this.registeringSubscription.unsubscribe();
-    }
   }
 
   ngAfterViewInit() {
@@ -62,9 +53,9 @@ export class RegisterComponent implements OnInit, OnDestroy, AfterViewInit {
     const { email, username,  password1 } = this.registerForm.value;
 
     this.loading = true;
-    this.registeringSubscription = this.authService.register(email, username, password1)
+    this.authService.register(email, username, password1)
       .subscribe(
-        (res) => {
+        (res: any) => {
           const { token, user } = res;
           this.authService.setToken(token);
           this.authService.setUser(user);
