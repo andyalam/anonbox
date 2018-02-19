@@ -1,14 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { SessionStoreService } from '../core/services/sessionStore.service';
-
 import { API } from '../shared/config';
+import { SessionStoreService } from '@anonbox-services/sessionStore.service';
+import { Credentials } from '@anonbox-models/credentials';
 
 @Injectable()
 export class AuthService {
   authStatus: BehaviorSubject<boolean>;
+
+  credentialsCast = (data) => new Credentials(data);
 
   constructor(private http: HttpClient,
               private sessionStore: SessionStoreService) {
@@ -17,25 +21,33 @@ export class AuthService {
     this.authStatus = new BehaviorSubject(loggedIn);
   }
 
-  setAuthStatus() {
+  setAuthStatus(){
     const status = this.isAuthenticated();
 
     this.authStatus.next(status);
   }
 
-  register(email: string, username: string, password: string) {
+  register(
+    email: string,
+    username: string,
+    password: string
+  ): Observable<Credentials> {
     const endpoint: string = API + '/register';
     const body = { email, username, password };
 
-    return this.http.post(endpoint, body);
+    return this.http
+      .post(endpoint, body)
+      .map(this.credentialsCast);
   }
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<Credentials>  {
     const endpoint: string = API + '/login';
     const body = { email, password };
     this.setAuthStatus();
 
-    return this.http.post(endpoint, body);
+    return this.http
+      .post(endpoint, body)
+      .map(this.credentialsCast);
   }
 
   logout() {
@@ -75,7 +87,7 @@ export class AuthService {
     );
   }
 
-  getHeader() {
+  get header() {
     const token = this.sessionStore.getStorage(
       this.sessionStore.TOKEN
     );
@@ -87,7 +99,7 @@ export class AuthService {
     return header;
   }
 
-  isAuthenticated() {
+  isAuthenticated(): boolean {
     const token = this.sessionStore.getStorage(
       this.sessionStore.TOKEN
     );
