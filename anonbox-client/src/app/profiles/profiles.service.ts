@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 import { API } from '../shared/config';
+import { Profile } from '@anonbox-models/profile';
+import { Box } from '@anonbox-models/box';
+import { Message } from '@anonbox-models/message';
 
 @Injectable()
 export class ProfilesService {
