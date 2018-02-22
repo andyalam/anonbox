@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(passport.initialize());
 
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header('Access-Control-Allow-Credentials', 'true');
@@ -42,22 +42,22 @@ app.use(function(req, res, next) {
 app.use('/api', api);
 // Anything that doesn't hit this '/api' or error will return the angular client
 // Angular will handle the rest from here
-app.use(function(req, res) {
+app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'app_client', 'index.html'));
 });
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use((req, res, next) => {
   const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use((err, req, res, next) => {
   const isProduction = !!process.env.production;
   const error = isProduction ? err : {};
-  if (isProduction) {
+  if (!isProduction) {
     console.log(err);
   }
 
