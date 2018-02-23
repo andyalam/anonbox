@@ -53,13 +53,10 @@ export class RegisterComponent implements OnInit, AfterViewInit {
     const { email, username,  password1 } = this.registerForm.value;
 
     this.loading = true;
-    this.authService.register(email, username, password1)
+    this.authService
+      .register(email, username, password1)
       .subscribe(
-        (res: any) => {
-          const { token, user } = res;
-          this.authService.setToken(token);
-          this.authService.setUser(user);
-          this.authService.setAuthStatus();
+        ({ user }) => {
           this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {

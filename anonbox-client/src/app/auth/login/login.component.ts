@@ -47,11 +47,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
     this.authService
       .login(email, password)
       .subscribe(
-        (res: any) => {
-          const { token, user } = res;
-          this.authService.setToken(token);
-          this.authService.setUser(user);
-          this.authService.setAuthStatus();
+        ({ user }) => {
           this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {

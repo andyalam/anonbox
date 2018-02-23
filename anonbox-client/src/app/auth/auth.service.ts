@@ -37,7 +37,8 @@ export class AuthService {
 
     return this.http
       .post(endpoint, body)
-      .map(this.credentialsCast);
+      .map(this.credentialsCast)
+      .map(this.handleStoringCredentials.bind(this));
   }
 
   login(email: string, password: string): Observable<Credentials>  {
@@ -47,7 +48,8 @@ export class AuthService {
 
     return this.http
       .post(endpoint, body)
-      .map(this.credentialsCast);
+      .map(this.credentialsCast)
+      .map(this.handleStoringCredentials.bind(this));
   }
 
   logout() {
@@ -104,6 +106,14 @@ export class AuthService {
       this.sessionStore.TOKEN
     );
     return token != null;
+  }
+
+  private handleStoringCredentials(res) {
+    const { token, user } = res;
+    this.setToken(token);
+    this.setUser(user);
+    this.setAuthStatus();
+    return res;
   }
 
 }
