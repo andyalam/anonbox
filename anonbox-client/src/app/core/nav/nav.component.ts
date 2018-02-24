@@ -45,7 +45,6 @@ export class NavComponent implements OnInit {
   }
 
   closeNav() {
-    console.log('close');
     this.isNavOpen = false;
   }
 

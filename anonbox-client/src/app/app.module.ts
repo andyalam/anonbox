@@ -21,8 +21,8 @@ import { ProfilesModule } from './profiles/profiles.module';
     HttpClientModule,
     CoreModule,
     AppRoutingModule,
-    AuthModule,
-    ProfilesModule
+    // AuthModule,
+    // ProfilesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
