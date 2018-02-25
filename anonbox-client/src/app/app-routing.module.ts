@@ -1,5 +1,10 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {
+  Routes,
+  RouterModule,
+  PreloadAllModules,
+  ExtraOptions
+} from '@angular/router';
 
 import { HomeComponent } from './core/home/home.component';
 import { ErrorPageComponent } from './core/error-page/error-page.component';
@@ -29,9 +34,13 @@ const appRoutes: Routes = [
   }
 ];
 
+const options: ExtraOptions = {
+  preloadingStrategy: PreloadAllModules
+};
+
 @NgModule({
   imports: [
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes, options)
   ],
   exports: [RouterModule]
 })
