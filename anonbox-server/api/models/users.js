@@ -31,7 +31,7 @@ const userSchema  = new mongoose.Schema({
 // Ensures the user has a general box
 userSchema.pre('save', async function(next) {
   const { username } = this;
-  console.log(BOX_OPTIONS);
+
   const preexistingBox = await Box.findOne({
     boxType: BOX_OPTIONS['general'],
     username

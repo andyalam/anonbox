@@ -16,7 +16,6 @@ module.exports.register = async (req, res) => {
   user.username = req.body.username;
   user.email = req.body.email;
   user.setPassword(req.body.password);
-
   await user.save();
 
   const token = user.generateJwt();
@@ -27,6 +26,7 @@ module.exports.register = async (req, res) => {
       email: user.email
     }
   };
+
   sendJsonResponse(res, 200, data);
 };
 

@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+const Base = require('./base-schema');
+
 exports.BOX_OPTIONS = {
 	general: 'general'
 };
@@ -33,4 +35,6 @@ boxSchema.methods.sortMessages = function() {
 	});
 };
 
-mongoose.model('Box', boxSchema);
+const Box = Base.discriminator('Box', boxSchema);
+
+mongoose.model('Box');
