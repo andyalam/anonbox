@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+import { MaterialModule } from './material.module';
+
 @NgModule({
   declarations: [],
+  imports: [
+    MaterialModule
+  ],
   exports: [
-    CommonModule
+    CommonModule,
+    MaterialModule
   ]
   /*
     NEVER provide services on shared modules

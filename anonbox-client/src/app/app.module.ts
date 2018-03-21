@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -16,13 +17,12 @@ import { ProfilesModule } from './profiles/profiles.module';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpModule,
     HttpClientModule,
     CoreModule,
     AppRoutingModule,
-    // AuthModule,
-    // ProfilesModule
   ],
   providers: [],
   bootstrap: [AppComponent]
