@@ -46,16 +46,12 @@ module.exports.postMessage = async (req, res) => {
 
 	await box.save();
 
-	// TODO:
-	console.log(username, message, box);
 	sendJsonResponse(res, 200, {});
 };
 
 module.exports.createBox = async(req, res) => {
 	const { username, boxType, description } = req.body;
 	const user = await User.findOne({ username });
-
-	console.log(username, boxType, description);
 
 	const box = new Box({
 		username,

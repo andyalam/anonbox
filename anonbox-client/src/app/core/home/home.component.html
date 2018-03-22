@@ -55,14 +55,15 @@
         color="primary"
         *ngIf="!isAuthenticated"
         routerLink="/auth/register"
-        class="btn btn-default btn-lg cta-btn">
+        class="cta-btn">
         Let's get started! <i aria-hidden="true" class="fa fa-cube"></i>
       </button>
       <button
         mat-raised-button
         color="primary"
         *ngIf="isAuthenticated"
-        [routerLink]="['/profile', username]">
+        [routerLink]="['/profile', username]"
+        class="cta-btn">
         View your boxes! <i aria-hidden="true" class="fa fa-cube"></i>
       </button>
     </div>
