@@ -24,8 +24,6 @@
 	margin-top: 15px;
 }
 
-/* error states */
-input.ng-invalid.ng-touched,
-textarea.ng-invalid.ng-touched {
-	border: 1px solid red;
+mat-form-field {
+  width: 100%;
 }

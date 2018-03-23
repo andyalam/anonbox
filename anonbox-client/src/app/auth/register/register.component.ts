@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -16,22 +10,16 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
   templateUrl: './register.component.html',
   styleUrls: ['../auth.scss']
 })
-export class RegisterComponent implements OnInit, AfterViewInit {
+export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   loading: boolean = false;
   error: string = '';
-
-  @ViewChild('initialInput') initialInput: ElementRef;
 
   constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
     this.initForm();
-  }
-
-  ngAfterViewInit() {
-    this.initialInput.nativeElement.focus();
   }
 
   initForm() {
@@ -41,20 +29,20 @@ export class RegisterComponent implements OnInit, AfterViewInit {
         Validators.email,
         Validators.required
       ]),
-      'password1': new FormControl(null, Validators.required),
-      'password2': new FormControl(null, [
+      'password': new FormControl(null, Validators.required),
+      'passwordRepeat': new FormControl(null, [
         Validators.required,
-        matchOtherValidator('password1'),
+        matchOtherValidator('password'),
       ])
     });
   }
 
   onSubmit() {
-    const { email, username,  password1 } = this.registerForm.value;
+    const { email, username,  password } = this.registerForm.value;
 
     this.loading = true;
     this.authService
-      .register(email, username, password1)
+      .register(email, username, password)
       .subscribe(
         ({ user }) => {
           this.router.navigate([`/profile/${user.username}`]);
