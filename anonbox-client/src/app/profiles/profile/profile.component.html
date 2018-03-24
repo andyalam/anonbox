@@ -45,30 +45,37 @@
 
               <form #addNewForm="ngForm" (ngSubmit)="onSubmitAddNewForm(addNewForm)">
                 <div class="form-group">
-                  <label for="boxType">Box Type*</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="boxType"
-                    name="boxType"
-                    ngModel
-                    #boxType="ngModel"
-                    required />
+                  <mat-form-field>
+                    <input
+                      autofocus
+                      matInput
+                      type="text"
+                      placeholder="Box Type"
+                      id="boxType"
+                      name="boxType"
+                      ngModel
+                      #boxType="ngModel"
+                      required />
+                  </mat-form-field>
                   <p *ngIf="boxType.touched && !boxType.valid" class="bg-danger form-error">
                     Box Type is required!
                   </p>
                 </div>
                 <div class="form-group">
-                  <label for="description">Description (optional)</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="description"
-                    name="description"
-                    ngModel />
+                  <mat-form-field>
+                    <input
+                      matInput
+                      type="text"
+                      placeholder="Description (optional)"
+                      id="description"
+                      name="description"
+                      ngModel />
+                  </mat-form-field>
                 </div>
                 <div class="text-right">
                   <button
+                    mat-raised-button
+                    color="primary"
                     class="btn btn-primary btn-block"
                     type="submit"
                     [disabled]="!addNewForm.valid">
