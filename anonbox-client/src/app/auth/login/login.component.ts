@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  AfterViewInit
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
@@ -15,22 +9,16 @@ import { AuthService } from '../auth.service';
   templateUrl: './login.component.html',
   styleUrls: ['../auth.scss']
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   loading: boolean = false;
   error: string = '';
-
-  @ViewChild('initialInput') initialInput: ElementRef;
 
   constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
     this.initForm();
-  }
-
-  ngAfterViewInit() {
-    this.initialInput.nativeElement.focus();
   }
 
   initForm() {

@@ -1,41 +1,40 @@
 <div class="form-container">
   <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <h2 class="title">Register</h2>
-    <div class="row">
-      <div class="form-group col-sm-12">
-        <mat-form-field>
-          <input
-            matInput
-            #initialInput
-            autofocus
-            type="text"
-            id="username"
-            placeholder="Username"
-            formControlName="username">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput
-            type="email"
-            id="email"
-            placeholder="Email"
-            formControlName="email">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput
-            type="password"
-            id="password"
-            placeholder="Password"
-            formControlName="password">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput
-            type="password"
-            id="passwordRepeat"
-            placeholder="Password Repeat"
-            formControlName="passwordRepeat">
-        </mat-form-field>
-      </div>
-    </div>
+    <mat-form-field>
+      <input
+        matInput
+        #initialInput
+        autofocus
+        type="text"
+        id="username"
+        placeholder="Username"
+        formControlName="username">
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="email"
+        id="email"
+        placeholder="Email"
+        formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        id="password"
+        placeholder="Password"
+        formControlName="password">
+    </mat-form-field>
+    <mat-form-field>
+      <input
+        matInput
+        type="password"
+        id="passwordRepeat"
+        placeholder="Password Repeat"
+        formControlName="passwordRepeat">
+    </mat-form-field>
     <button
       mat-raised-button
       color="primary"
