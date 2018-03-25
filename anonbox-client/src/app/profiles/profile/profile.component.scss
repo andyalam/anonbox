@@ -9,11 +9,11 @@
 	margin-top: 15px;
 }
 
-.box {
+div.box {
 	position: relative;
 	border: 1px solid #ccc;
 	padding: 15px;
-	margin: 15px auto;
+	margin: 5px auto 15px;
 	&:hover {
 		cursor: pointer;
 	}
@@ -80,6 +80,10 @@
 		border-radius: 100%;
 		margin: 0 auto;
 	}
+}
+
+.profile-owner-intro {
+  margin: 30px auto 40px;
 }
 
 .fa-cube.active {

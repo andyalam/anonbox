@@ -101,8 +101,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.profilesService.deleteBox(box)
       .subscribe(
         res => {
-          const { deletedBox } = res;
-          this.removeBox(deletedBox);
+          const { box } = res;
+          this.removeBox(box);
         },
         err => console.log(err)
       );
