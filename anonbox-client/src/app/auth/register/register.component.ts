@@ -11,18 +11,18 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
   styleUrls: ['../auth.scss']
 })
 export class RegisterComponent implements OnInit {
-  registerForm: FormGroup;
-  loading: boolean = false;
-  error: string = '';
+  public registerForm: FormGroup;
+  public loading: boolean = false;
+  public error: string = '';
 
   constructor(private authService: AuthService,
               private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.initForm();
   }
 
-  initForm() {
+  private initForm() {
     this.registerForm = new FormGroup({
       'username': new FormControl(null, Validators.required),
       'email': new FormControl(null, [
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  onSubmit() {
+  public onSubmit() {
     const { email, username,  password } = this.registerForm.value;
 
     this.loading = true;

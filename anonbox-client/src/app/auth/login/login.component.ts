@@ -10,25 +10,25 @@ import { AuthService } from '../auth.service';
   styleUrls: ['../auth.scss']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
-  loading: boolean = false;
-  error: string = '';
+  public loginForm: FormGroup;
+  public loading: boolean = false;
+  public error: string = '';
 
   constructor(private authService: AuthService,
               private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.initForm();
   }
 
-  initForm() {
+  private initForm() {
     this.loginForm = new FormGroup({
       'email': new FormControl(null, [Validators.email, Validators.required]),
       'password': new FormControl(null, Validators.required)
     });
   }
 
-  onSubmit() {
+  public onSubmit() {
     const { email, password } = this.loginForm.value;
 
     this.loading = true;

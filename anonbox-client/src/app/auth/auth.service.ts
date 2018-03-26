@@ -10,24 +10,26 @@ import { Credentials } from '@anonbox-models/credentials';
 
 @Injectable()
 export class AuthService {
-  authStatus: BehaviorSubject<boolean>;
+  private authStatus: BehaviorSubject<boolean> =
+    new BehaviorSubject<boolean>(false);
+  public currentAuthStatus: Observable<boolean> = this.authStatus.asObservable();
 
-  credentialsCast = (data) => new Credentials(data);
+  private credentialsCast = (data) => new Credentials(data);
 
   constructor(private http: HttpClient,
               private sessionStore: SessionStoreService) {
     const loggedIn: boolean = !!this.getToken();
 
-    this.authStatus = new BehaviorSubject(loggedIn);
+    this.authStatus.next(loggedIn);
   }
 
-  setAuthStatus(){
+  public setAuthStatus(){
     const status = this.isAuthenticated();
 
     this.authStatus.next(status);
   }
 
-  register(
+  public register(
     email: string,
     username: string,
     password: string
@@ -41,7 +43,7 @@ export class AuthService {
       .map(this.handleStoringCredentials.bind(this));
   }
 
-  login(email: string, password: string): Observable<Credentials>  {
+  public login(email: string, password: string): Observable<Credentials>  {
     const endpoint: string = API + '/login';
     const body = { email, password };
     this.setAuthStatus();
@@ -52,7 +54,7 @@ export class AuthService {
       .map(this.handleStoringCredentials.bind(this));
   }
 
-  logout() {
+  public logout() {
     this.sessionStore.clearStorage(
       this.sessionStore.TOKEN
     );
@@ -63,33 +65,33 @@ export class AuthService {
     this.setAuthStatus();
   }
 
-  getToken() {
+  private getToken() {
     return this.sessionStore.getStorage(
       this.sessionStore.TOKEN
     );
   }
 
-  setToken(token) {
+  private setToken(token) {
     this.sessionStore.setStorage(
       this.sessionStore.TOKEN,
       token
     );
   }
 
-  getUser() {
+  public getUser() {
     return this.sessionStore.getStorage(
       this.sessionStore.USER
     );
   }
 
-  setUser(user) {
+  private setUser(user) {
     this.sessionStore.setStorage(
       this.sessionStore.USER,
       user
     );
   }
 
-  get header() {
+  private get header() {
     const token = this.sessionStore.getStorage(
       this.sessionStore.TOKEN
     );
@@ -101,7 +103,7 @@ export class AuthService {
     return header;
   }
 
-  isAuthenticated(): boolean {
+  public isAuthenticated(): boolean {
     const token = this.sessionStore.getStorage(
       this.sessionStore.TOKEN
     );
