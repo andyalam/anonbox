@@ -17,31 +17,31 @@ import { ProfilesService } from '../profiles.service';
 })
 export class MessageBoxComponent implements OnInit, AfterViewInit {
 
-  messageForm: FormGroup;
+  public messageForm: FormGroup;
 
   private _receiver;
   private _sender;
   private _boxType;
 
-  @Input() set receiver(value) {
+  @Input() public set receiver(value) {
     this._receiver = value;
     this.focusMessageBox();
   };
 
-  @Input() set sender(value) {
+  @Input() public set sender(value) {
     this._sender = value;
     this.focusMessageBox();
   };
 
-  @Input() set boxType(value) {
+  @Input() public set boxType(value) {
     this._boxType = value;
     this.focusMessageBox();
   };
 
-  isFormShown: boolean = true;
-  isFormLoading: boolean;
-  isSuccessShown: boolean;
-  errorMessage: string;
+  public isFormShown: boolean = true;
+  public isFormLoading: boolean;
+  public isSuccessShown: boolean;
+  public errorMessage: string;
 
   @ViewChild('input') input;
 
@@ -49,30 +49,30 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
     this.initMessageForm();
   }
 
-  ngOnInit() {
+  public ngOnInit() {
     if (!this._receiver) {
       this.errorMessage = 'Message Box Failed to Initialize!';
       this.isFormShown = false;
     }
   }
 
-  ngAfterViewInit() {
+  public ngAfterViewInit() {
     this.focusMessageBox();
   }
 
-  initMessageForm() {
+  private initMessageForm() {
     this.messageForm = new FormGroup({
       'message': new FormControl('')
     });
   }
 
-  focusMessageBox() {
+  private focusMessageBox() {
     if (this.input) {
       this.input.nativeElement.focus();
     }
   }
 
-  onSubmitMessageForm() {
+  public onSubmitMessageForm() {
     this.isFormLoading = true;
 
     this.profilesService
@@ -87,12 +87,12 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
       );
   }
 
-  handleMessageSuccess(res) {
+  private handleMessageSuccess(res) {
     this.isFormLoading = false;
     this.isSuccessShown = true;
   }
 
-  handleMessageError(errRes) {
+  private handleMessageError(errRes) {
     this.isFormLoading = false;
 
     const { error } = errRes;

@@ -13,34 +13,34 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-  profile;
-  isProfileLoading: boolean;
-  error: string = '';
+  public profile;
+  public isProfileLoading: boolean;
+  public error: string = '';
 
-  selectedBox;
-  isAddFormShown: boolean = false; // default needed for direct toggle
-  isAddFormLoading: boolean;
-  addFormError: string;
+  public selectedBox;
+  public isAddFormShown: boolean = false; // default needed for direct toggle
+  public isAddFormLoading: boolean;
+  public addFormError: string;
 
-  isProfileOwner: boolean;
-  profileOwnerSubscription: Subscription;
+  public isProfileOwner: boolean;
+  private profileOwnerSubscription: Subscription;
 
   constructor(private profilesService: ProfilesService,
               private authService: AuthService,
               private route: ActivatedRoute,
               private router: Router) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.loadProfile();
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     if (this.profileOwnerSubscription) {
       this.profileOwnerSubscription.unsubscribe();
     }
   }
 
-  loadProfile() {
+  private loadProfile() {
     const profileName = this.route.snapshot.params.id;
     this.isProfileLoading = true;
 
@@ -82,22 +82,22 @@ export class ProfileComponent implements OnInit, OnDestroy {
       );
   }
 
-  onProfileNotFound() {
+  private onProfileNotFound() {
     this.router.navigate(['/not-found']);
   }
 
-  onClickBox(box) {
+  public onClickBox(box) {
     this.selectedBox = box;
     console.log('new box selected', this.selectedBox);
   }
 
-  removeBox(targetBox) {
+  private removeBox(targetBox) {
     this.profile.boxes = this.profile.boxes.filter(box => {
       return targetBox.boxType !== box.boxType;
     });
   }
 
-  onClickDeleteBox(box) {
+  public onClickDeleteBox(box) {
     this.profilesService.deleteBox(box)
       .subscribe(
         res => {
@@ -108,7 +108,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       );
   }
 
-  watchProfileOwner() {
+  private watchProfileOwner() {
     const setProfileOwner = (res) => {
       if (!this.profile || !this.authService.getUser()) {
         this.isProfileOwner = false;
@@ -127,17 +127,17 @@ export class ProfileComponent implements OnInit, OnDestroy {
       return;
     };
 
-    this.profileOwnerSubscription = this.authService.authStatus.subscribe(
+    this.profileOwnerSubscription = this.authService.currentAuthStatus.subscribe(
       setProfileOwner.bind(this),
       err => this.isProfileOwner = false
     );
   }
 
-  onClickAddNewBox() {
+  public onClickAddNewBox() {
     this.isAddFormShown = !this.isAddFormShown;
   }
 
-  onSubmitAddNewForm(form: NgForm) {
+  public onSubmitAddNewForm(form: NgForm) {
     console.log(form.value);
     const { username } = this.authService.getUser();
     const { boxType, description } = form.value;

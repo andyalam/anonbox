@@ -9,7 +9,7 @@ export class ProfileSettingsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
 }

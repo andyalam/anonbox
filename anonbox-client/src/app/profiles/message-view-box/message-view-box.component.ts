@@ -8,14 +8,14 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class MessageViewBoxComponent implements OnInit, OnChanges {
 
-  @Input() box;
+  @Input() public box;
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
-  ngOnChanges() {
+  public ngOnChanges() {
     if (!this.box) {
       return;
     }
