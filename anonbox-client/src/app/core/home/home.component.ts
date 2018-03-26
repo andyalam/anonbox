@@ -10,32 +10,32 @@ import { AuthService } from '../../auth/auth.service';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  isAuthenticated: boolean;
-  username: string;
+  public isAuthenticated: boolean;
+  public username: string;
 
-  authSubscription: Subscription;
+  private authSubscription: Subscription;
 
   constructor(private authService: AuthService) {
     this.initAuthSubscription();
   }
 
-  ngOnInit() {
+  public ngOnInit() {
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy() {
     // unsubscribe if we've created this subscription previously
     if (this.authSubscription) {
       this.authSubscription.unsubscribe();
     }
   }
 
-  initAuthSubscription() {
+  private initAuthSubscription() {
     if (this.authService.isAuthenticated()) {
       this.isAuthenticated = this.authService.isAuthenticated();
       this.username = this.authService.getUser().username;
     }
 
-    this.authSubscription = this.authService.authStatus.subscribe(
+    this.authSubscription = this.authService.currentAuthStatus.subscribe(
       res => this.isAuthenticated = res,
       err => this.isAuthenticated = false
     );

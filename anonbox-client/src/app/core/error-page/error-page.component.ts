@@ -8,12 +8,12 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./error-page.component.scss']
 })
 export class ErrorPageComponent implements OnInit {
-  errorMessage: string;
-  errorCode: number;
+  public errorMessage: string;
+  public errorCode: number;
 
   constructor(private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.route.data.subscribe(
       (data: Data) => {
         this.errorMessage = data['message'];

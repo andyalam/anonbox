@@ -6,9 +6,9 @@
 */
 export class LocalStoreService {
 
-  REMEMBER_ME: string = 'rememberMe';
+  public REMEMBER_ME: string = 'rememberMe';
 
-  setStorage(key: string, value, stringify: boolean = true) {
+  public setStorage(key: string, value, stringify: boolean = true) {
     if (stringify) {
       localStorage[key] = JSON.stringify(value);
     } else {
@@ -18,10 +18,10 @@ export class LocalStoreService {
     return value;
   }
 
-  getStorage(key: string, parse: boolean = true) {
+  public getStorage(key: string, parse: boolean = true) {
     const data = localStorage[key];
     if (data === 'undefined') {
-      console.log('undefined data found');
+      console.log(`undefined data found for key: ${key}`);
       return null;
     } else if (parse && data) {
       return JSON.parse(data);
@@ -30,11 +30,11 @@ export class LocalStoreService {
     }
   }
 
-  clearStorage(key: string) {
+  public clearStorage(key: string) {
     localStorage.removeItem(key);
   }
 
-  clearStorageAll() {
+  public clearStorageAll() {
     localStorage.clear();
   }
 }
