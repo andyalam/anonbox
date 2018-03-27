@@ -19,7 +19,6 @@ export class MessageViewBoxComponent implements OnInit, OnChanges {
     if (!this.box) {
       return;
     }
-    console.log('change detected', this.box);
   }
 
 }

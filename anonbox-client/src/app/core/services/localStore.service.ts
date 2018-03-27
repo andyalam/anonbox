@@ -21,7 +21,7 @@ export class LocalStoreService {
   public getStorage(key: string, parse: boolean = true) {
     const data = localStorage[key];
     if (data === 'undefined') {
-      console.log(`undefined data found for key: ${key}`);
+      console.error(`undefined data found for key: ${key}`);
       return null;
     } else if (parse && data) {
       return JSON.parse(data);

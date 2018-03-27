@@ -23,7 +23,7 @@ export class AuthService {
     this.authStatus.next(loggedIn);
   }
 
-  public setAuthStatus(){
+  public setAuthStatus() {
     const status = this.isAuthenticated();
 
     this.authStatus.next(status);

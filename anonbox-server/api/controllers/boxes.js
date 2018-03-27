@@ -60,7 +60,7 @@ module.exports.createBox = async(req, res) => {
 	});
 	await box.save();
 
-	sendJsonResponse(res, 200, { box });
+	sendJsonResponse(res, 200, box);
 };
 
 module.exports.deleteBox = async(req, res) => {
@@ -69,5 +69,5 @@ module.exports.deleteBox = async(req, res) => {
 	const box = await Box.findOne({ boxType });
 	await box.remove();
 
-	sendJsonResponse(res, 200, { box });
+	sendJsonResponse(res, 200, box);
 };

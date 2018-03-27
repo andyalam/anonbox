@@ -12,30 +12,33 @@ import { Message } from '@anonbox-models/message';
 export class ProfilesService {
   constructor(private http: HttpClient) {}
 
-  public getProfile(username): Observable<any> {
+  public getProfile(username): Observable<Profile> {
     const endpoint = API + `/profile/${username}`;
 
-    return this.http.get(endpoint);
+    return this.http.get(endpoint)
+      .map(Profile.cast);
   }
 
-  public postMessage(username, message, boxType?): Observable<any> {
+  public postMessage(username, message, boxType?): Observable<void> {
     const endpoint = API + `/profile/${username}`;
     const data = { message, boxType };
 
-    return this.http.post(endpoint, data);
+    return this.http.post<void>(endpoint, data);
   }
 
-  public deleteBox(box): Observable<any> {
+  public deleteBox(box): Observable<Box> {
     const endpoint = API + `/box/${box.boxType}`;
 
-    return this.http.delete(endpoint);
+    return this.http.delete(endpoint)
+      .map(Box.cast);
   }
 
-  public createBox(username, boxType, description?): Observable<any> {
+  public createBox(username, boxType, description?): Observable<Box> {
     const endpoint = API + '/box';
     const data = { username, boxType, description };
 
-    return this.http.post(endpoint, data);
+    return this.http.post(endpoint, data)
+      .map(Box.cast);
   }
 
 }

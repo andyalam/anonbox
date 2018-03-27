@@ -26,24 +26,24 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
   @Input() public set receiver(value) {
     this._receiver = value;
     this.focusMessageBox();
-  };
+  }
 
   @Input() public set sender(value) {
     this._sender = value;
     this.focusMessageBox();
-  };
+  }
 
   @Input() public set boxType(value) {
     this._boxType = value;
     this.focusMessageBox();
-  };
+  }
 
   public isFormShown: boolean = true;
   public isFormLoading: boolean;
   public isSuccessShown: boolean;
   public errorMessage: string;
 
-  @ViewChild('input') input;
+  @ViewChild('input') public input;
 
   constructor(private profilesService: ProfilesService) {
     this.initMessageForm();

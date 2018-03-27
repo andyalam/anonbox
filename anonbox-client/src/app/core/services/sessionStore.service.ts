@@ -6,10 +6,10 @@
 */
 export class SessionStoreService {
 
-  TOKEN: string = 'login';
-  USER: string = 'user';
+  public TOKEN: string = 'login';
+  public USER: string = 'user';
 
-  setStorage(key: string, value: string, stringify: boolean = true) {
+  public setStorage(key: string, value: string, stringify: boolean = true) {
     if (stringify) {
       sessionStorage[key] = JSON.stringify(value);
     } else {
@@ -19,7 +19,7 @@ export class SessionStoreService {
     return value;
   }
 
-  getStorage(key: string, parse: boolean = true) {
+  public getStorage(key: string, parse: boolean = true) {
     const data = sessionStorage[key];
     if (parse && data) {
       return JSON.parse(data);
@@ -28,11 +28,11 @@ export class SessionStoreService {
     }
   }
 
-  clearStorage(key: string) {
+  public clearStorage(key: string) {
     sessionStorage.removeItem(key);
   }
 
-  clearStorageAll() {
+  public clearStorageAll() {
     sessionStorage.clear();
   }
 }

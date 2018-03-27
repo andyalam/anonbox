@@ -48,7 +48,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .subscribe(
         res => {
           this.isProfileLoading = false;
-          console.log(res);
           const { user, boxes } = res;
           const { username } = user;
 
@@ -64,7 +63,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
             boxes,
             imageCSS: 'url(/assets/images/profile_placeholder.jpg)'
           };
-          console.log(this.profile);
 
           this.watchProfileOwner();
 
@@ -88,7 +86,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   public onClickBox(box) {
     this.selectedBox = box;
-    console.log('new box selected', this.selectedBox);
   }
 
   private removeBox(targetBox) {
@@ -97,14 +94,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
-  public onClickDeleteBox(box) {
-    this.profilesService.deleteBox(box)
+  public onClickDeleteBox(selectedBox) {
+    this.profilesService.deleteBox(selectedBox)
       .subscribe(
-        res => {
-          const { box } = res;
-          this.removeBox(box);
-        },
-        err => console.log(err)
+        this.removeBox.bind(this),
+        console.error
       );
   }
 
@@ -138,7 +132,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   public onSubmitAddNewForm(form: NgForm) {
-    console.log(form.value);
     const { username } = this.authService.getUser();
     const { boxType, description } = form.value;
 
@@ -148,18 +141,16 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.profilesService.createBox(username, boxType, parsedDescription)
       .subscribe(
-        res => {
+        box => {
           this.isAddFormLoading = false;
-          this.onClickAddNewBox(); // close add form box
-
-          const { box } = res;
+          this.isAddFormShown = false;
           this.profile.boxes.push(box);
         },
         err => {
           this.isAddFormLoading = false;
           this.addFormError = err;
           setTimeout(() => this.addFormError = null, 5000);
-          console.log(err);
+          console.error(err);
         }
       );
   }
