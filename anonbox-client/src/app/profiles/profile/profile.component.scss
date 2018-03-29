@@ -13,7 +13,7 @@ div.box {
 	position: relative;
 	border: 1px solid #ccc;
 	padding: 15px;
-	margin: 5px auto 15px;
+	margin: 0 auto 15px;
 	&:hover {
 		cursor: pointer;
 	}
@@ -38,27 +38,25 @@ div.box {
 		position: relative;
 		text-align: left;
 		border: 1px solid #ccc;
-		padding: 15px;
+		padding: 30px 15px 15px;
 		.cancel {
 			position: absolute;
 			top: 5px;
 			right: 7px;
-			font-size: 21px;
 			padding: 0 7px;
 			border-radius: 100%;
 			&:hover {
 				cursor: pointer;
-				background: rgba(0,0,0,0.2);
 			}
-		}
-		.form-error {
-			padding: 5px;
 		}
 		.error {
 			margin: 10px auto 15px;
 			padding: 15px;
 			text-align: center;
 		}
+    mat-form-field {
+      width: 100%;
+    }
 	}
 }
 
@@ -97,4 +95,8 @@ div.box {
 		top: 0;
 		left: -10px;
 	}
+}
+
+.box-selected-holder .selected-title {
+  text-align: right;
 }

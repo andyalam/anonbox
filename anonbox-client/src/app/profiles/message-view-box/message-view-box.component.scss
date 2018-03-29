@@ -2,13 +2,19 @@
   margin-bottom: 30px;
 }
 
+.box-title {
+  text-align: right;
+}
+
 .empty-state {
 	text-align: center;
 }
+
 .message, .empty-state {
 	border: 1px solid #ccc;
 	padding: 30px 15px;
 }
+
 .message {
 	position: relative;
 	&:not(:first-of-type) {

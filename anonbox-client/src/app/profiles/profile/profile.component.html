@@ -39,11 +39,12 @@
               <i class="fa fa-plus" aria-hidden="true"></i>
             </button>
             <div class="addNew__form" *ngIf="isAddFormShown">
-              <div
+              <button
+                mat-icon-button
                 class="cancel"
                 (click)="onClickAddNewBox()">
                 <i class="fa fa-times" aria-hidden="true"></i>
-              </div>
+              </button>
 
               <form #addNewForm="ngForm" (ngSubmit)="onSubmitAddNewForm(addNewForm)">
                 <div class="form-group">
@@ -59,9 +60,6 @@
                       #boxType="ngModel"
                       required />
                   </mat-form-field>
-                  <p *ngIf="boxType.touched && !boxType.valid" class="bg-danger form-error">
-                    Box Type is required!
-                  </p>
                 </div>
                 <div class="form-group">
                   <mat-form-field>
@@ -126,18 +124,19 @@
         </div>
       </div>
       <div class="col-sm-8">
-        <div
-          *ngIf="(profile && profile.username && selectedBox) && !isProfileOwner">
-          {{ selectedBox.boxType }}
-          <app-message-box
-            [receiver]="profile.username"
-            [boxType]="selectedBox.boxType">
-          </app-message-box>
-        </div>
-
-        <div class="box-selected-holder" *ngIf="isProfileOwner">
-          <app-message-view-box [box]="selectedBox">
-          </app-message-view-box>
+        <div class="box-selected-holder">
+          <ng-container
+            *ngIf="(profile && profile.username && selectedBox) && !isProfileOwner">
+            <h4 class="selected-title">{{ selectedBox.boxType }}</h4>
+            <app-message-box
+              [receiver]="profile.username"
+              [boxType]="selectedBox.boxType">
+            </app-message-box>
+          </ng-container>
+          <ng-container *ngIf="isProfileOwner">
+            <app-message-view-box [box]="selectedBox">
+            </app-message-view-box>
+          </ng-container>
         </div>
       </div>
     </div>
