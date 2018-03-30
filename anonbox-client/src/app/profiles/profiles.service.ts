@@ -15,7 +15,8 @@ export class ProfilesService {
   public getProfile(username): Observable<Profile> {
     const endpoint = API + `/profile/${username}`;
 
-    return this.http.get(endpoint)
+    return this.http
+      .get(endpoint)
       .map(Profile.cast);
   }
 
@@ -23,13 +24,15 @@ export class ProfilesService {
     const endpoint = API + `/profile/${username}`;
     const data = { message, boxType };
 
-    return this.http.post<void>(endpoint, data);
+    return this.http
+      .post<void>(endpoint, data);
   }
 
   public deleteBox(box): Observable<Box> {
     const endpoint = API + `/box/${box.boxType}`;
 
-    return this.http.delete(endpoint)
+    return this.http
+      .delete(endpoint)
       .map(Box.cast);
   }
 
@@ -37,7 +40,8 @@ export class ProfilesService {
     const endpoint = API + '/box';
     const data = { username, boxType, description };
 
-    return this.http.post(endpoint, data)
+    return this.http
+      .post(endpoint, data)
       .map(Box.cast);
   }
 
