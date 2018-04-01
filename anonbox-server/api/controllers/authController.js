@@ -39,10 +39,8 @@ module.exports.login = (req, res) => {
     return;
   }
 
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local', (err, user, info) => {
     let token;
-
-    console.log(info);
 
     if (err) {
       sendJsonResponse(res, 404, err);
@@ -51,13 +49,7 @@ module.exports.login = (req, res) => {
 
     if (user) {
       token = user.generateJwt();
-      const data = {
-        token,
-        user: {
-          username: user.username,
-          email: user.email
-        }
-      };
+      const data = { token, user };
       sendJsonResponse(res, 200, data);
     } else {
       sendJsonResponse(res, 401, info);

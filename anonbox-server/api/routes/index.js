@@ -1,15 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
+const auth = passport.authenticate('jwt', { session: false });
+
 const authController = require('../controllers/authController');
 const boxController = require('../controllers/boxController');
 const userController = require('../controllers/userController');
 const { catchErrors } = require('../handlers/handlers');
-const jwt = require('express-jwt');
-// pass auth to any routes that require the user to be authenticated.
-const auth = jwt({
-  secret: process.env.JWT_SECRET,
-  userProperty: 'payload'
-});
 
 // Authentication
 router.post('/register', catchErrors(authController.register));
