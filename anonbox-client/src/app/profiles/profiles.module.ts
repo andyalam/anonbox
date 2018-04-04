@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { ProfileComponent } from './profile/profile.component';
 import { ProfileSettingsComponent } from './profile-settings/profile-settings.component';
@@ -18,7 +18,6 @@ import { MessageViewBoxComponent } from './message-view-box/message-view-box.com
   ],
   imports: [
     FormsModule,
-    ReactiveFormsModule,
     ProfilesRoutingModule,
     SharedModule
   ],

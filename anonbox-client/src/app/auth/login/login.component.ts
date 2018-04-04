@@ -36,6 +36,7 @@ export class LoginComponent implements OnInit {
       .login(email, password)
       .subscribe(
         ({ user }) => {
+          console.error(1);
           this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {

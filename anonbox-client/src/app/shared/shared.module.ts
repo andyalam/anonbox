@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from './material.module';
@@ -6,11 +7,13 @@ import { MaterialModule } from './material.module';
 @NgModule({
   declarations: [],
   imports: [
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
   exports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ]
   /*
     NEVER provide services on shared modules
