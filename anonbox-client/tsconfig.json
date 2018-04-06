@@ -21,7 +21,8 @@
       "@anonbox-core/*": ["app/core/*"],
       "@anonbox-shared/*": ["app/shared/*"],
       "@anonbox-models/*": ["app/shared/models/*"],
-      "@anonbox-services/*": ["app/core/services/*"]
+      "@anonbox-services/*": ["app/core/services/*"],
+      "@anonbox-auth/*": ["app/auth/*"]
     }
   }
 }
