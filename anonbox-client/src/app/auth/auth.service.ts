@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { API } from '../shared/config';
-import { SessionStoreService } from '@anonbox-services/sessionStore.service';
+import { SessionStoreService } from '@anonbox-services/session-store.service';
 import { Credentials } from '@anonbox-models/credentials';
 
 @Injectable()

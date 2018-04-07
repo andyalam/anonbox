@@ -1,2 +1,2 @@
-export * from './localStore.service';
-export * from './sessionStore.service';
+export * from './local-store.service';
+export * from './session-store.service';
