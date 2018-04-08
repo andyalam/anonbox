@@ -32,7 +32,7 @@ describe('AuthGuard', () => {
     httpMock = injector.get(HttpTestingController);
   });
 
-  it('should ...',() => {
+  it('should ...', () => {
     expect(guard).toBeTruthy();
   });
 });

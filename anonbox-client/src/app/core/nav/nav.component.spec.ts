@@ -27,8 +27,7 @@ describe('NavComponent', () => {
       ],
       providers: [
         AuthService,
-        SessionStoreService,
-        { provide: APP_BASE_HREF, useValue: '/' }
+        SessionStoreService
       ]
     })
     .compileComponents();
