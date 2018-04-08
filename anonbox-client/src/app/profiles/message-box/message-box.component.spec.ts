@@ -16,7 +16,9 @@ describe('MessageBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageBoxComponent ],
+      declarations: [
+        MessageBoxComponent
+      ],
       imports: [
         HttpClientTestingModule,
         SharedModule,

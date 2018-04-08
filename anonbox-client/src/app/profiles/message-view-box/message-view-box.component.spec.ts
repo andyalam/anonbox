@@ -1,5 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
+import { SharedModule } from '@anonbox-shared/shared.module';
 import { MessageViewBoxComponent } from './message-view-box.component';
 
 describe('MessageViewBoxComponent', () => {
@@ -8,7 +9,12 @@ describe('MessageViewBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageViewBoxComponent ]
+      declarations: [
+        MessageViewBoxComponent
+      ],
+      imports: [
+        SharedModule
+      ]
     })
     .compileComponents();
   }));
