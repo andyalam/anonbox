@@ -4,9 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 import { API } from '../shared/config';
-import { Profile } from '@anonbox-models/profile';
-import { Box } from '@anonbox-models/box';
-import { Message } from '@anonbox-models/message';
+import { Box, Profile, Message } from '@anonbox-models/index';
 
 @Injectable()
 export class ProfilesService {
