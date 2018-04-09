@@ -5,6 +5,10 @@ export class Box extends Model {
     return new Box(data);
   }
 
+  public static casts(data: object[]): Box[] {
+    return data.map(b => new Box(b));
+  }
+
   constructor(data?: object) {
     super(data);
   }

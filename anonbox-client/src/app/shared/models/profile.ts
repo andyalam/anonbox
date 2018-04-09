@@ -13,5 +13,13 @@ export class Profile extends Model {
 
   constructor(data?: object) {
     super(data);
+
+    if (this.user !== null && this.user !== undefined) {
+      this.user = User.cast(this.user);
+    }
+
+    if (Array.isArray(this.boxes)) {
+      this.boxes = Box.casts(this.boxes);
+    }
   }
 }

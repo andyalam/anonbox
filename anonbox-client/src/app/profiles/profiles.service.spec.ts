@@ -7,9 +7,12 @@ import {
 import { CoreModule } from '@anonbox-core/core.module';
 import { ProfilesService } from './profiles.service';
 
+import { API } from '@anonbox-shared/config';
+import { Box, Profile, Message, User } from '@anonbox-models/index';
+
 describe('ProfilesService', () => {
   let injector: TestBed;
-  let service: ProfilesService;
+  let profileService: ProfilesService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
@@ -21,11 +24,38 @@ describe('ProfilesService', () => {
     });
 
     injector = getTestBed();
-    service = injector.get(ProfilesService);
+    profileService = injector.get(ProfilesService);
     httpMock = injector.get(HttpTestingController);
   });
 
   it('should be created', () => {
-    expect(service).toBeTruthy();
+    expect(profileService).toBeTruthy();
   });
+
+  describe('getProfile', () => {
+    it('should return an Observable<Profile>', () => {
+      profileService
+        .getProfile('andy')
+        .subscribe((profile: Profile) => {
+          expect(profile).toEqual(new Profile({
+            user: new User({
+              username: 'andy',
+              email: 'test@test.com'
+            }),
+            boxes: [new Box({})]
+          }));
+        });
+
+      const req = httpMock.expectOne(`${API}/profile/andy`);
+      expect(req.request.method).toBe('GET');
+      req.flush({
+        user: {
+          username: 'andy',
+          email: 'test@test.com'
+        },
+        boxes: [{}]
+      });
+    });
+  });
+
 });
