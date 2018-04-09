@@ -1,6 +1,12 @@
 import { Model } from './model';
+import { Message } from './message';
 
 export class Box extends Model {
+  public userName: string;
+  public boxType: string;
+  public description: string;
+  public messages: Message[];
+
   public static cast(data: object): Box {
     return new Box(data);
   }
@@ -11,5 +17,9 @@ export class Box extends Model {
 
   constructor(data?: object) {
     super(data);
+
+    if (Array.isArray(this.messages)) {
+      this.messages = Message.casts(this.messages);
+    }
   }
 }
