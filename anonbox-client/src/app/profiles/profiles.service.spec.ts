@@ -58,4 +58,19 @@ describe('ProfilesService', () => {
     });
   });
 
+  describe('postMessage', () => {
+    it('should return an Observable<void>', () => {
+      profileService
+        .postMessage('andy', 'hello mah peeps', 'GENERAL')
+        .subscribe(res => expect(res).toEqual(null));
+
+      const req = httpMock.expectOne(`${API}/profile/andy`);
+      expect(req.request.body).toEqual({
+        message: 'hello mah peeps',
+        boxType: 'GENERAL'
+      });
+      req.flush(null);
+    });
+  });
+
 });
