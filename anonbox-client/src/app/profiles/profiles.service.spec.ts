@@ -73,4 +73,8 @@ describe('ProfilesService', () => {
     });
   });
 
+  afterEach(() => {
+    httpMock.verify();
+  });
+
 });
