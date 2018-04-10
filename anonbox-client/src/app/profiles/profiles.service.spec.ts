@@ -65,11 +65,41 @@ describe('ProfilesService', () => {
         .subscribe(res => expect(res).toEqual(null));
 
       const req = httpMock.expectOne(`${API}/profile/andy`);
+      expect(req.request.method).toBe('POST');
       expect(req.request.body).toEqual({
         message: 'hello mah peeps',
         boxType: 'GENERAL'
       });
       req.flush(null);
+    });
+  });
+
+  describe('createBox', () => {
+    it('should return an Observable<Box>', () => {
+      profileService
+        .createBox('andy', 'GENERAL', 'testing my general box')
+        .subscribe((box: Box) => {
+          expect(box).toEqual(new Box({
+            username: 'andy',
+            boxType: 'GENERAL',
+            description: 'testing my general box',
+            messages: []
+          }));
+        });
+
+      const req = httpMock.expectOne(`${API}/box`);
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({
+        username: 'andy',
+        boxType: 'GENERAL',
+        description: 'testing my general box',
+      });
+      req.flush({
+        username: 'andy',
+        boxType: 'GENERAL',
+        description: 'testing my general box',
+        messages: []
+      });
     });
   });
 

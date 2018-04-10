@@ -2,7 +2,7 @@ import { Model } from './model';
 import { Message } from './message';
 
 export class Box extends Model {
-  public userName: string;
+  public username: string;
   public boxType: string;
   public description: string;
   public messages: Message[];
