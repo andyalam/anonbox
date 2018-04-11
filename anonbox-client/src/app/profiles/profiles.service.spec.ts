@@ -103,6 +103,20 @@ describe('ProfilesService', () => {
     });
   });
 
+  describe('deleteBox', () => {
+    it('should return an Observable<Box>', () => {
+      profileService
+        .deleteBox(new Box({ boxType: 'ANYTHING' }))
+        .subscribe((res: Box) => {
+          expect(res).toEqual(new Box({ boxType: 'ANYTHING' }));
+        });
+
+      const req = httpMock.expectOne(`${API}/box/ANYTHING`);
+      expect(req.request.method).toBe('DELETE');
+      req.flush({ boxType: 'ANYTHING' });
+    });
+  });
+
   afterEach(() => {
     httpMock.verify();
   });
