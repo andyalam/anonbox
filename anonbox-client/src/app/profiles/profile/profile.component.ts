@@ -4,7 +4,7 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ProfilesService } from '../profiles.service';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '@anonbox-services/index';
 
 @Component({
   selector: 'app-profile',

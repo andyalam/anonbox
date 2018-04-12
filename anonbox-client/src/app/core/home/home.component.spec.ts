@@ -7,8 +7,7 @@ import {
 } from '@angular/common/http/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { AuthService } from '@anonbox-auth/auth.service';
-import { SessionStoreService } from '@anonbox-services/index';
+import { AuthService, SessionStoreService } from '@anonbox-services/index';
 import { SharedModule } from '@anonbox-shared/shared.module';
 import { HomeComponent } from './home.component';
 

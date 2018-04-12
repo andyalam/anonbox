@@ -6,7 +6,7 @@ import {
 import { APP_BASE_HREF } from '@angular/common';
 
 import { AuthGuard } from './auth.guard';
-import { AuthService } from './auth.service';
+import { AuthService } from '@anonbox-services/index';
 import { CoreModule } from '@anonbox-core/core.module';
 
 describe('AuthGuard', () => {

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
-import { AuthService } from '../auth.service';
+import { AuthService } from '@anonbox-services/index';
 import { matchOtherValidator } from '../../shared/match-other-validator';
 
 @Component({

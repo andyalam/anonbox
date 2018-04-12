@@ -2,11 +2,14 @@ import { NgModule } from '@angular/core';
 
 import { NavComponent } from './nav/nav.component';
 import { HomeComponent } from './home/home.component';
-import { AuthService } from '../auth/auth.service';
 import { SharedModule } from '../shared/shared.module';
 import { AppRoutingModule } from '../app-routing.module';
-import { SessionStoreService } from './services/session-store.service';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import {
+  AuthService,
+  LocalStoreService,
+  SessionStoreService
+} from '@anonbox-services/index';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
   ],
   providers: [
     AuthService,
+    LocalStoreService,
     SessionStoreService
   ]
 })

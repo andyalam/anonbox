@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot
 } from '@angular/router';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '@anonbox-services/index';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
