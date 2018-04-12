@@ -46,7 +46,6 @@ export class AuthService {
   public login(email: string, password: string): Observable<Credentials>  {
     const endpoint: string = API + '/login';
     const body = { email, password };
-    this.setAuthStatus();
 
     return this.http
       .post(endpoint, body)

@@ -67,6 +67,36 @@ describe('AuthService', () => {
     });
   });
 
+  describe('login', () => {
+    it('should return an Observable<Credentials>', () => {
+      authService
+        .login('test@test.com', 'password')
+        .subscribe((res: Credentials) => {
+          expect(res).toEqual(new Credentials({
+            token: '123abc',
+            user: new User({
+              username: 'test',
+              email: 'test@test.com'
+            })
+          }));
+        });
+
+      const req = httpMock.expectOne(`${API}/login`);
+      expect(req.request.method).toBe('POST');
+      expect(req.request.body).toEqual({
+        email: 'test@test.com',
+        password: 'password'
+      });
+      req.flush({
+        token: '123abc',
+        user: {
+          username: 'test',
+          email: 'test@test.com'
+        }
+      });
+    });
+  });
+
   afterEach(() => {
     httpMock.verify();
   });
