@@ -11,5 +11,9 @@ export class Credentials extends Model {
 
   constructor(data?: object) {
     super(data);
+
+    if (this.user !== undefined) {
+      this.user = User.cast(this.user);
+    }
   }
 }
