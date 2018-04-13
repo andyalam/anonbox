@@ -9,14 +9,18 @@ export class SessionStoreService {
   public TOKEN: string = 'login';
   public USER: string = 'user';
 
-  public setStorage(key: string, value: string, stringify: boolean = true) {
+  public setStorage(
+    key: string,
+    value: string,
+    stringify: boolean = true
+  ): SessionStoreService {
     if (stringify) {
       sessionStorage[key] = JSON.stringify(value);
     } else {
       sessionStorage[key] = value;
     }
 
-    return value;
+    return this;
   }
 
   public getStorage(key: string, parse: boolean = true) {
@@ -28,11 +32,13 @@ export class SessionStoreService {
     }
   }
 
-  public clearStorage(key: string) {
+  public clearStorage(key: string): SessionStoreService {
     sessionStorage.removeItem(key);
+    return this;
   }
 
-  public clearStorageAll() {
+  public clearStorageAll(): SessionStoreService {
     sessionStorage.clear();
+    return this;
   }
 }

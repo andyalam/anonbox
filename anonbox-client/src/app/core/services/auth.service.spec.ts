@@ -6,6 +6,7 @@ import {
 import { APP_BASE_HREF } from '@angular/common';
 
 import { AuthService } from './auth.service';
+import { SessionStoreService } from './session-store.service';
 import { CoreModule } from '@anonbox-core/core.module';
 import { Credentials, User } from '@anonbox-models/index';
 import { API } from '@anonbox-shared/config';
@@ -13,22 +14,24 @@ import { API } from '@anonbox-shared/config';
 describe('AuthService', () => {
   let injector: TestBed;
   let authService: AuthService;
+  let sessionStore: SessionStoreService;
   let httpMock: HttpTestingController;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        CoreModule
       ],
       providers: [
         AuthService,
+        SessionStoreService,
         { provide: APP_BASE_HREF, useValue: '/' }
       ]
     });
 
     injector = getTestBed();
     authService = injector.get(AuthService);
+    sessionStore = injector.get(SessionStoreService);
     httpMock = injector.get(HttpTestingController);
   });
 
@@ -36,7 +39,7 @@ describe('AuthService', () => {
     expect(authService).toBeTruthy();
   });
 
-  describe('register', () => {
+  describe('register()', () => {
     it('should return an Observable<Credentials>', () => {
       authService
         .register('test@test.com', 'test', 'password')
@@ -67,7 +70,7 @@ describe('AuthService', () => {
     });
   });
 
-  describe('login', () => {
+  describe('login()', () => {
     it('should return an Observable<Credentials>', () => {
       authService
         .login('test@test.com', 'password')
@@ -94,6 +97,24 @@ describe('AuthService', () => {
           email: 'test@test.com'
         }
       });
+    });
+  });
+
+  describe('logout()', () => {
+    it('should clear the curent TOKEN and USER out of the session', () => {
+      const { setStorage, getStorage, TOKEN, USER } = sessionStore;
+      setStorage(TOKEN, 'anything')
+      setStorage(
+        USER,
+        '{ username: \'test\', email: \'test@test.com\' }'
+      );
+      authService.logout();
+
+      const token = getStorage(TOKEN);
+      expect(token).toEqual(undefined);
+
+      const user = getStorage(USER);
+      expect(user).toEqual(undefined);
     });
   });
 
