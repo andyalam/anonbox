@@ -19,11 +19,11 @@
       class="collapse navbar-collapse navHeaderCollapse"
       [ngClass]="{ 'in': isNavOpen }">
       <ul class="nav navbar-nav navbar-right">
-        <ng-template *ngIf="!isLoggedIn()">
+        <ng-template [ngIf]="!isLoggedIn()">
           <li routerLinkActive="active"><a routerLink="/auth/register">Register</a></li>
           <li routerLinkActive="active"><a routerLink="/auth/login">Login</a></li>
         </ng-template>
-        <ng-template *ngIf="isLoggedIn()">
+        <ng-template [ngIf]="isLoggedIn()">
           <li routerLinkActive="active"><a [routerLink]="['/profile', getUsername()]">Profile</a></li>
           <li><a class="logout" (click)="onLogout()">Logout</a></li>
         </ng-template>
