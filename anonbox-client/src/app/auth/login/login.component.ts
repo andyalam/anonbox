@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '@anonbox-services/index';
 
@@ -28,15 +29,14 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public onSubmit() {
+  public onSubmit(): Subscription {
     const { email, password } = this.loginForm.value;
 
     this.loading = true;
-    this.authService
+    return this.authService
       .login(email, password)
       .subscribe(
         ({ user }) => {
-          console.error(1);
           this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {

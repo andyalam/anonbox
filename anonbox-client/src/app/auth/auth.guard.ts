@@ -11,7 +11,10 @@ import { AuthService } from '@anonbox-services/index';
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService) {}
 
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  public canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): boolean {
     return this.authService.isAuthenticated();
   }
 }

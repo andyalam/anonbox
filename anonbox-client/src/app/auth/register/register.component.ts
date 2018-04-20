@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '@anonbox-services/index';
+import { Credentials } from '@anonbox-models/index';
 import { matchOtherValidator } from '../../shared/match-other-validator';
 
 @Component({
@@ -37,14 +39,14 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  public onSubmit() {
+  public onSubmit(): Subscription {
     const { email, username,  password } = this.registerForm.value;
 
     this.loading = true;
-    this.authService
+    return this.authService
       .register(email, username, password)
       .subscribe(
-        ({ user }) => {
+        ({ user }: Credentials) => {
           this.router.navigate([`/profile/${user.username}`]);
         },
         (err) => {
