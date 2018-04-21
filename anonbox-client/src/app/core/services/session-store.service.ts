@@ -11,7 +11,7 @@ export class SessionStoreService {
 
   public setStorage(
     key: string,
-    value: string,
+    value,
     stringify: boolean = true
   ): SessionStoreService {
     if (stringify) {

@@ -6,7 +6,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { API } from '@anonbox-shared/config';
 import { SessionStoreService } from '@anonbox-services/session-store.service';
-import { Credentials } from '@anonbox-models/credentials';
+import { Credentials, User } from '@anonbox-models/index';
 
 @Injectable()
 export class AuthService {
@@ -77,10 +77,15 @@ export class AuthService {
     );
   }
 
-  public getUser() {
-    return this.sessionStore.getStorage(
+  public getUser(): User {
+    const userProperties: object = this.sessionStore.getStorage(
       this.sessionStore.USER
     );
+    const user: User = new User({
+      ...userProperties
+    });
+
+    return user;
   }
 
   private setUser(user) {
@@ -90,7 +95,7 @@ export class AuthService {
     );
   }
 
-  private get header() {
+  private get header(): { Authorization: string } {
     const token = this.sessionStore.getStorage(
       this.sessionStore.TOKEN
     );
@@ -109,7 +114,7 @@ export class AuthService {
     return token != null;
   }
 
-  private handleStoringCredentials(res) {
+  private handleStoringCredentials(res: Credentials): Credentials {
     const { token, user } = res;
     this.setToken(token);
     this.setUser(user);

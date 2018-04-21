@@ -8,14 +8,18 @@ export class LocalStoreService {
 
   public REMEMBER_ME: string = 'rememberMe';
 
-  public setStorage(key: string, value, stringify: boolean = true) {
+  public setStorage(
+    key: string,
+    value,
+    stringify: boolean = true
+  ): LocalStoreService {
     if (stringify) {
       localStorage[key] = JSON.stringify(value);
     } else {
       localStorage[key] = value;
     }
 
-    return value;
+    return this;
   }
 
   public getStorage(key: string, parse: boolean = true) {
@@ -30,11 +34,13 @@ export class LocalStoreService {
     }
   }
 
-  public clearStorage(key: string) {
+  public clearStorage(key: string): LocalStoreService {
     localStorage.removeItem(key);
+    return this;
   }
 
-  public clearStorageAll() {
+  public clearStorageAll(): LocalStoreService {
     localStorage.clear();
+    return this;
   }
 }
