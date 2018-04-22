@@ -1,10 +1,12 @@
+import { Store } from './store.service';
+
 /*
   Service for communicating with localStorage.
 
   It's main purpose is to store keys in an easy identifiable place
   and to avoid 'magic' strings being used across the app.
 */
-export class LocalStoreService {
+export class LocalStoreService implements Store<LocalStoreService> {
 
   public REMEMBER_ME: string = 'rememberMe';
 
