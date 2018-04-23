@@ -19,38 +19,39 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
 
   public messageForm: FormGroup;
 
-  private _receiver;
-  private _sender;
-  private _boxType;
+  private _receiver: string;
+  private _sender; // TODO: implement on special cases
+  private _boxType: string;
 
-  @Input() public set receiver(value) {
+  @Input() public set receiver(value: string) {
     this._receiver = value;
     this.focusMessageBox();
   }
 
-  @Input() public set sender(value) {
+  @Input() public set sender(value: string) {
     this._sender = value;
     this.focusMessageBox();
   }
 
-  @Input() public set boxType(value) {
+  @Input() public set boxType(value: string) {
     this._boxType = value;
     this.focusMessageBox();
   }
 
   public isFormShown: boolean = true;
-  public isFormLoading: boolean;
-  public isSuccessShown: boolean;
-  public errorMessage: string;
+  public isFormLoading: boolean = false;
+  public isSuccessShown: boolean = false;
+  public errorMessage: string = undefined;
 
-  @ViewChild('input') public input;
+  @ViewChild('input')
+  public input: ElementRef;
 
   constructor(private profilesService: ProfilesService) {
     this.initMessageForm();
   }
 
   public ngOnInit() {
-    if (!this._receiver) {
+    if (this._receiver === undefined || this.receiver === null) {
       this.errorMessage = 'Message Box Failed to Initialize!';
       this.isFormShown = false;
     }
@@ -67,7 +68,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
   }
 
   private focusMessageBox() {
-    if (this.input) {
+    if (this.input !== undefined && this.input !== null) {
       this.input.nativeElement.focus();
     }
   }
@@ -87,7 +88,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
       );
   }
 
-  private handleMessageSuccess(res) {
+  private handleMessageSuccess() {
     this.isFormLoading = false;
     this.isSuccessShown = true;
   }

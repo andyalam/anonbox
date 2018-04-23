@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { ProfilesService } from '../profiles.service';
 import { AuthService } from '@anonbox-services/index';
+import { Box, Profile } from '@anonbox-models/index';
 
 @Component({
   selector: 'app-profile',
@@ -13,11 +14,11 @@ import { AuthService } from '@anonbox-services/index';
 })
 export class ProfileComponent implements OnInit, OnDestroy {
 
-  public profile;
+  public profile: Profile;
   public isProfileLoading: boolean;
-  public error: string = '';
+  public error: string;
 
-  public selectedBox;
+  public selectedBox: Box;
   public isAddFormShown: boolean = false; // default needed for direct toggle
   public isAddFormLoading: boolean;
   public addFormError: string;
@@ -44,31 +45,25 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const profileName = this.route.snapshot.params.id;
     this.isProfileLoading = true;
 
-    this.profilesService.getProfile(profileName)
+    this.profilesService
+      .getProfile(profileName)
       .subscribe(
-        res => {
-          this.isProfileLoading = false;
-          const { user, boxes } = res;
-          const { username } = user;
-
-          // User not found
-          if (!user) {
+        (res: Profile) => {
+          // Profile not found
+          if (res === undefined || res === null) {
             this.onProfileNotFound();
             return;
           }
-
-          this.profile = {
-            ...this.profile,
-            username,
-            boxes,
-            imageCSS: 'url(/assets/images/profile_placeholder.jpg)'
-          };
-
+          this.isProfileLoading = false;
+          this.profile = res;
           this.watchProfileOwner();
 
           // select default box
-          if (boxes && boxes.length) {
-            this.selectedBox = boxes[0];
+          if (
+            this.profile.boxes !== undefined &&
+            this.profile.boxes.length > 0
+          ) {
+            this.selectedBox = this.profile.boxes[0];
           }
 
         },
@@ -110,7 +105,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       }
 
       const { username } = this.authService.getUser();
-      const profileUsername = this.profile.username;
+      const profileUsername = this.profile.user.username;
 
       if (!username || !profileUsername) {
         this.isProfileOwner = false;
@@ -139,9 +134,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.isAddFormLoading = true;
 
-    this.profilesService.createBox(username, boxType, parsedDescription)
+    this.profilesService
+      .createBox(username, boxType, parsedDescription)
       .subscribe(
-        box => {
+        (box: Box) => {
           this.isAddFormLoading = false;
           this.isAddFormShown = false;
           this.profile.boxes.push(box);
