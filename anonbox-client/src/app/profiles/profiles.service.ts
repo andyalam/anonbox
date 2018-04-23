@@ -10,7 +10,7 @@ import { Box, Profile, Message } from '@anonbox-models/index';
 export class ProfilesService {
   constructor(private http: HttpClient) {}
 
-  public getProfile(username): Observable<Profile> {
+  public getProfile(username: string): Observable<Profile> {
     const endpoint = API + `/profile/${username}`;
 
     return this.http
@@ -18,7 +18,11 @@ export class ProfilesService {
       .map(Profile.cast);
   }
 
-  public postMessage(username, message, boxType?): Observable<void> {
+  public postMessage(
+    username: string,
+    message: string,
+    boxType?: string
+  ): Observable<void> {
     const endpoint = API + `/profile/${username}`;
     const data = { message, boxType };
 
@@ -26,7 +30,7 @@ export class ProfilesService {
       .post<void>(endpoint, data);
   }
 
-  public deleteBox(box): Observable<Box> {
+  public deleteBox(box: Box): Observable<Box> {
     const endpoint = API + `/box/${box.boxType}`;
 
     return this.http
@@ -34,7 +38,11 @@ export class ProfilesService {
       .map(Box.cast);
   }
 
-  public createBox(username, boxType, description?): Observable<Box> {
+  public createBox(
+    username: string,
+    boxType: string,
+    description?: string
+  ): Observable<Box> {
     const endpoint = API + '/box';
     const data = { username, boxType, description };
 
