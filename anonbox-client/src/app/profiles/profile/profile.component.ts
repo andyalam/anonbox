@@ -24,7 +24,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
   public addFormError: string;
 
   public isProfileOwner: boolean;
-  private profileOwnerSubscription: Subscription;
+
+  private subscriptions: Subscription = new Subscription();
 
   constructor(private profilesService: ProfilesService,
               private authService: AuthService,
@@ -32,20 +33,18 @@ export class ProfileComponent implements OnInit, OnDestroy {
               private router: Router) { }
 
   public ngOnInit() {
-    this.loadProfile();
+    this.subscriptions.add(this.loadProfile());
   }
 
   public ngOnDestroy() {
-    if (this.profileOwnerSubscription) {
-      this.profileOwnerSubscription.unsubscribe();
-    }
+    this.subscriptions.unsubscribe();
   }
 
-  private loadProfile() {
+  private loadProfile(): Subscription {
     const profileName = this.route.snapshot.params.id;
     this.isProfileLoading = true;
 
-    this.profilesService
+    return this.profilesService
       .getProfile(profileName)
       .subscribe(
         (res: Profile) => {
@@ -56,7 +55,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
           }
           this.isProfileLoading = false;
           this.profile = res;
-          this.watchProfileOwner();
+          this.subscriptions.add(this.watchProfileOwner());
 
           // select default box
           if (
@@ -83,21 +82,21 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.selectedBox = box;
   }
 
-  private removeBox(targetBox) {
-    this.profile.boxes = this.profile.boxes.filter(box => {
-      return targetBox.boxType !== box.boxType;
-    });
+  private removeBox(targetBox: Box) {
+    this.profile.boxes = this.profile.boxes
+      .filter((box: Box) => targetBox.boxType !== box.boxType);
   }
 
-  public onClickDeleteBox(selectedBox) {
-    this.profilesService.deleteBox(selectedBox)
+  public onClickDeleteBox(selectedBox: Box): Subscription {
+    return this.profilesService
+      .deleteBox(selectedBox)
       .subscribe(
         this.removeBox.bind(this),
         console.error
       );
   }
 
-  private watchProfileOwner() {
+  private watchProfileOwner(): Subscription {
     const setProfileOwner = (res) => {
       if (!this.profile || !this.authService.getUser()) {
         this.isProfileOwner = false;
@@ -116,17 +115,19 @@ export class ProfileComponent implements OnInit, OnDestroy {
       return;
     };
 
-    this.profileOwnerSubscription = this.authService.currentAuthStatus.subscribe(
-      setProfileOwner.bind(this),
-      err => this.isProfileOwner = false
-    );
+    return this.authService
+      .currentAuthStatus
+      .subscribe(
+        setProfileOwner.bind(this),
+        err => this.isProfileOwner = false
+      );
   }
 
   public onClickAddNewBox() {
     this.isAddFormShown = !this.isAddFormShown;
   }
 
-  public onSubmitAddNewForm(form: NgForm) {
+  public onSubmitAddNewForm(form: NgForm): Subscription {
     const { username } = this.authService.getUser();
     const { boxType, description } = form.value;
 
@@ -134,7 +135,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
     this.isAddFormLoading = true;
 
-    this.profilesService
+    return this.profilesService
       .createBox(username, boxType, parsedDescription)
       .subscribe(
         (box: Box) => {
