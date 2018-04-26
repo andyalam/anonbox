@@ -22,7 +22,7 @@
   </form>
 
   <div *ngIf="errorMessage && !isSuccessShown" class="error-text bg-danger">
-    {{ errorMessage }}
+    {{ errorMessage | apiError }}
   </div>
   <div *ngIf="isSuccessShown" class="success bg-success">
     <p>Your message has been dropped into the box!</p>

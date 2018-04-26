@@ -93,11 +93,10 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
     this.isSuccessShown = true;
   }
 
-  private handleMessageError(errRes) {
+  private handleMessageError(err) {
     this.isFormLoading = false;
 
-    const { error } = errRes;
-    this.errorMessage = error;
+    this.errorMessage = err;
     setTimeout(() => this.errorMessage = null, 4000);
   }
 

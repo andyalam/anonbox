@@ -3,9 +3,12 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { MaterialModule } from './material.module';
+import { ApiErrorPipe } from './pipes/api-error.pipe';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    ApiErrorPipe
+  ],
   imports: [
     MaterialModule,
     ReactiveFormsModule
@@ -13,7 +16,8 @@ import { MaterialModule } from './material.module';
   exports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ApiErrorPipe
   ]
   /*
     NEVER provide services on shared modules
