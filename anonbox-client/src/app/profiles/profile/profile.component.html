@@ -18,9 +18,9 @@
         class="placeholder-img"
         [ngStyle]="{ 'background-image': profile.imageCSS }">
       </div>
-      <h2 class="username">{{ profile.username }}</h2>
+      <h2 class="username">{{ profile.user.username }}</h2>
       <div class="profile-owner-intro" *ngIf="isProfileOwner">
-        <h2>Welcome to your profile, {{ profile.username }}!</h2>
+        <h2>Welcome to your profile, {{ profile.user.username }}!</h2>
         <h5>
           Select a box below to view the messages within it, or create a new one.
         </h5>
@@ -126,10 +126,10 @@
       <div class="col-sm-8">
         <div class="box-selected-holder">
           <ng-container
-            *ngIf="(profile && profile.username && selectedBox) && !isProfileOwner">
+            *ngIf="(profile && profile.user.username && selectedBox) && !isProfileOwner">
             <h4 class="selected-title">{{ selectedBox.boxType }}</h4>
             <app-message-box
-              [receiver]="profile.username"
+              [receiver]="profile.user.username"
               [boxType]="selectedBox.boxType">
             </app-message-box>
           </ng-container>

@@ -97,22 +97,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private watchProfileOwner(): Subscription {
-    const setProfileOwner = (res) => {
-      if (!this.profile || !this.authService.getUser()) {
-        this.isProfileOwner = false;
-        return;
-      }
-
+    const setProfileOwner = (isAuthenticated: boolean) => {
       const { username } = this.authService.getUser();
       const profileUsername = this.profile.user.username;
 
-      if (!username || !profileUsername) {
-        this.isProfileOwner = false;
-        return;
-      }
-
       this.isProfileOwner = username === profileUsername;
-      return;
     };
 
     return this.authService
