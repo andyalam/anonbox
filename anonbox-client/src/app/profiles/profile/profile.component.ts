@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { ProfilesService } from '../profiles.service';
@@ -16,12 +17,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   public profile: Profile;
   public isProfileLoading: boolean;
-  public error: string;
+  public error: HttpErrorResponse|string;
 
   public selectedBox: Box;
   public isAddFormShown: boolean = false; // default needed for direct toggle
   public isAddFormLoading: boolean;
-  public addFormError: string;
+  public addFormError: HttpErrorResponse|string;
 
   public isProfileOwner: boolean;
 
@@ -66,10 +67,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
           }
 
         },
-        err => {
-          const { errmsg } = err;
+        (err: HttpErrorResponse|string) => {
           this.isProfileLoading = false;
-          this.error = errmsg ? errmsg : 'Profile Load Failed';
+          this.error = err;
         }
       );
   }
@@ -97,17 +97,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   private watchProfileOwner(): Subscription {
-    const setProfileOwner = (isAuthenticated: boolean) => {
-      const { username } = this.authService.getUser();
-      const profileUsername = this.profile.user.username;
-
-      this.isProfileOwner = username === profileUsername;
-    };
-
     return this.authService
       .currentAuthStatus
       .subscribe(
-        setProfileOwner.bind(this),
+        (isAuthenticated: boolean) => {
+          const { username } = this.authService.getUser();
+          const profileUsername = this.profile.user.username;
+
+          this.isProfileOwner = username === profileUsername;
+        },
         err => this.isProfileOwner = false
       );
   }
@@ -120,7 +118,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const { username } = this.authService.getUser();
     const { boxType, description } = form.value;
 
-    const parsedDescription = description.length > 0 ? description : null;
+    const parsedDescription = description.length > 0 ? description : undefined;
 
     this.isAddFormLoading = true;
 
@@ -132,10 +130,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
           this.isAddFormShown = false;
           this.profile.boxes.push(box);
         },
-        err => {
+        (err: HttpErrorResponse|string) => {
           this.isAddFormLoading = false;
           this.addFormError = err;
-          setTimeout(() => this.addFormError = null, 5000);
+          setTimeout(() => this.addFormError = undefined, 5000);
           console.error(err);
         }
       );

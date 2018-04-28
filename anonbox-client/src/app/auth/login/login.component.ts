@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '@anonbox-services/index';
@@ -13,7 +14,7 @@ import { AuthService } from '@anonbox-services/index';
 export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
   public loading: boolean = false;
-  public error: string = '';
+  public error: HttpErrorResponse|string = '';
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -39,7 +40,7 @@ export class LoginComponent implements OnInit {
         ({ user }) => {
           this.router.navigate([`/profile/${user.username}`]);
         },
-        (err) => {
+        (err: HttpErrorResponse| string) => {
           this.loading = false;
           this.error = err;
         }

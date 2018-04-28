@@ -1,7 +1,7 @@
 <div class="profile" *ngIf="profile">
 
   <div *ngIf="error" class="error-text bg-danger">
-    {{ error }}
+    {{ error | apiError }}
   </div>
 
   <div class="loader" *ngIf="isProfileLoading">

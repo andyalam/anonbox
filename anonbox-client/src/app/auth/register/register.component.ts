@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs/Subscription';
 
 import { AuthService } from '@anonbox-services/index';
@@ -15,7 +16,7 @@ import { matchOtherValidator } from '../../shared/match-other-validator';
 export class RegisterComponent implements OnInit {
   public registerForm: FormGroup;
   public loading: boolean = false;
-  public error: string = '';
+  public error: HttpErrorResponse|string = '';
 
   constructor(private authService: AuthService,
               private router: Router) { }
@@ -49,9 +50,8 @@ export class RegisterComponent implements OnInit {
         ({ user }: Credentials) => {
           this.router.navigate([`/profile/${user.username}`]);
         },
-        (err) => {
-          const { errmsg } = err;
-          this.error = errmsg ? errmsg : 'Authorization Failed';
+        (err: HttpErrorResponse|string) => {
+          this.error = err;
           this.loading = false;
         }
       );

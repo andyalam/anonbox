@@ -7,6 +7,7 @@ import {
   AfterViewInit
 } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 import { ProfilesService } from '../profiles.service';
 
@@ -41,7 +42,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
   public isFormShown: boolean = true;
   public isFormLoading: boolean = false;
   public isSuccessShown: boolean = false;
-  public errorMessage: string = undefined;
+  public error: HttpErrorResponse|string = undefined;
 
   @ViewChild('input')
   public input: ElementRef;
@@ -52,7 +53,7 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
 
   public ngOnInit() {
     if (this._receiver === undefined || this.receiver === null) {
-      this.errorMessage = 'Message Box Failed to Initialize!';
+      this.error = 'Message Box Failed to Initialize!';
       this.isFormShown = false;
     }
   }
@@ -93,11 +94,10 @@ export class MessageBoxComponent implements OnInit, AfterViewInit {
     this.isSuccessShown = true;
   }
 
-  private handleMessageError(err) {
+  private handleMessageError(err: HttpErrorResponse|string) {
     this.isFormLoading = false;
-
-    this.errorMessage = err;
-    setTimeout(() => this.errorMessage = null, 4000);
+    this.error = err;
+    setTimeout(() => this.error = undefined, 4000);
   }
 
 }

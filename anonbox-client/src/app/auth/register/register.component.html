@@ -45,7 +45,7 @@
       <span *ngIf="loading">Loader here....</span>
     </button>
     <div *ngIf="error" class="error-text bg-danger">
-      {{ error }}
+      {{ error | apiError }}
     </div>
     <div class="help-text">
       Already have an account? <a routerLink="/login">Login Here!</a>
