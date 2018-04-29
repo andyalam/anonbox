@@ -17,6 +17,9 @@
       <div
         class="placeholder-img"
         [ngStyle]="{ 'background-image': profile.imageCSS }">
+        <div *ngIf="isProfileOwner" class="edit" >
+          <i class="fa fa-picture-o" aria-hidden="true"></i>
+        </div>
       </div>
       <h2 class="username">{{ profile.user.username }}</h2>
       <div class="profile-owner-intro" *ngIf="isProfileOwner">
