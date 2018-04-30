@@ -8,13 +8,15 @@ import { SharedModule } from '../shared/shared.module';
 import { ProfilesService } from './profiles.service';
 import { MessageBoxComponent } from './message-box/message-box.component';
 import { MessageViewBoxComponent } from './message-view-box/message-view-box.component';
+import { DialogEditPhotoComponent } from './dialog-edit-photo/dialog-edit-photo.component';
 
 @NgModule({
   declarations: [
     ProfileComponent,
     ProfileSettingsComponent,
     MessageBoxComponent,
-    MessageViewBoxComponent
+    MessageViewBoxComponent,
+    DialogEditPhotoComponent
   ],
   imports: [
     FormsModule,

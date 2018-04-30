@@ -17,7 +17,7 @@
       <div
         class="placeholder-img"
         [ngStyle]="{ 'background-image': profile.imageCSS }">
-        <div *ngIf="isProfileOwner" class="edit" >
+        <div *ngIf="isProfileOwner" class="edit" (click)="onClickEditPhoto()">
           <i class="fa fa-picture-o" aria-hidden="true"></i>
         </div>
       </div>
